@@ -7,10 +7,17 @@ defmodule CockpitWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug CockpitWeb.Plugs.GetUser
   end
 
   pipeline :api do
     plug :accepts, ["json"]
+  end
+
+  pipeline :admin do
+    plug :browser
+    plug CockpitWeb.Plugs.LoginRequired
+    plug CockpitWeb.Plugs.VerifyAdmin
   end
 
   scope "/", CockpitWeb do
@@ -19,8 +26,9 @@ defmodule CockpitWeb.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", CockpitWeb do
-  #   pipe_through :api
-  # end
+  scope "/admin", CockpitWeb do
+    pipe_through :admin
+
+    resources "/users", UserController
+  end
 end

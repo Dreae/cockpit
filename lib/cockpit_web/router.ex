@@ -24,6 +24,8 @@ defmodule CockpitWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/login", PageController, :get_login
+    post "/login", PageController, :do_login
   end
 
   scope "/admin", CockpitWeb do

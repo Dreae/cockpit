@@ -38,6 +38,14 @@ defmodule Cockpit.Accounts do
   def get_user!(id), do: Repo.get!(User, id)
 
   @doc """
+  Gets a single user by username.
+
+  """
+  def get_user_by_username(username) do
+    Repo.one(from u in User, where: u.username == ^username)
+  end
+
+  @doc """
   Creates a user.
 
   ## Examples

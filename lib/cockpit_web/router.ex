@@ -26,11 +26,13 @@ defmodule CockpitWeb.Router do
     get "/", PageController, :index
     get "/login", PageController, :get_login
     post "/login", PageController, :do_login
+    post "/logout", PageController, :do_logout
   end
 
   scope "/dashboard", CockpitWeb do
     pipe_through :admin
 
+    get "/", DashboardController, :index
     resources "/users", UserController
   end
 end

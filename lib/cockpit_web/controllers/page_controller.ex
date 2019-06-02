@@ -9,7 +9,7 @@ defmodule CockpitWeb.PageController do
 
   def get_login(conn, _params) do
     if conn.assigns[:user] != nil do
-      redirect(conn, to: "/")
+      redirect(conn, to: Routes.page_path(conn, :index))
     else
       render(conn, "login.html")
     end
@@ -29,7 +29,13 @@ defmodule CockpitWeb.PageController do
       true ->
         conn
         |> put_session(:user_id, user.id)
-        |> redirect(to: "/")
+        |> redirect(to: Routes.dashboard_path(conn, :index))
     end
+  end
+
+  def do_logout(conn, _params) do
+    conn
+    |> put_session(:user_id, nil)
+    |> redirect(to: Routes.page_path(conn, :index))
   end
 end

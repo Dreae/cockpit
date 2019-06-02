@@ -1,5 +1,5 @@
 defmodule CockpitWeb.Plugs.VerifyAdmin do
-    import Phoenix.Controller
+    use CockpitWeb, :controller
 
     def init(_params) do
         
@@ -9,7 +9,7 @@ defmodule CockpitWeb.Plugs.VerifyAdmin do
         if !Ecto.assoc_loaded?(conn.assigns[:user].admin) do
             conn
             |> put_flash(:error, "You can't access that page")
-            |> redirect(to: "/")
+            |> redirect(to: Routes.page_path(conn, :index))
         else
             conn
         end

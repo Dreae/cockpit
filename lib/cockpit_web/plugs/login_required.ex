@@ -1,6 +1,5 @@
 defmodule CockpitWeb.Plugs.LoginRequired do
-    import Plug.Conn
-    import Phoenix.Controller
+    use CockpitWeb, :controller
     alias Cockpit.Accounts
 
     def init(_params) do
@@ -12,7 +11,7 @@ defmodule CockpitWeb.Plugs.LoginRequired do
         if user === nil do
             conn
             |> put_flash(:info, "You must be logged in.")
-            |> redirect(to: "/")
+            |> redirect(to: Routes.page_path(conn, :get_login))
         else
             conn
         end

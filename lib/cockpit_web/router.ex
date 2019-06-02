@@ -28,7 +28,7 @@ defmodule CockpitWeb.Router do
     post "/login", PageController, :do_login
   end
 
-  scope "/admin", CockpitWeb do
+  scope "/dashboard", CockpitWeb do
     pipe_through :admin
 
     resources "/users", UserController

@@ -35,14 +35,14 @@ defmodule Cockpit.Accounts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id), do: Repo.get!(User, id)
+  def get_user!(id), do: Repo.one!(from u in User, where: u.id == ^id, preload: [:admin])
 
   @doc """
   Gets a single user by username.
 
   """
   def get_user_by_username(username) do
-    Repo.one(from u in User, where: u.username == ^username)
+    Repo.one(from u in User, where: u.username == ^username, preload: [:admin])
   end
 
   @doc """
@@ -108,5 +108,101 @@ defmodule Cockpit.Accounts do
   """
   def change_user(%User{} = user) do
     User.changeset(user, %{})
+  end
+
+  alias Cockpit.Accounts.ValidationTokens
+
+  @doc """
+  Returns the list of validation_token.
+
+  ## Examples
+
+      iex> list_validation_token()
+      [%ValidationTokens{}, ...]
+
+  """
+  def list_validation_token do
+    Repo.all(ValidationTokens)
+  end
+
+  @doc """
+  Gets a single validation_tokens.
+
+  Raises `Ecto.NoResultsError` if the Validation tokens does not exist.
+
+  ## Examples
+
+      iex> get_validation_tokens!(123)
+      %ValidationTokens{}
+
+      iex> get_validation_tokens!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_validation_tokens!(id), do: Repo.get!(ValidationTokens, id)
+
+  @doc """
+  Creates a validation_tokens.
+
+  ## Examples
+
+      iex> create_validation_tokens(%{field: value})
+      {:ok, %ValidationTokens{}}
+
+      iex> create_validation_tokens(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_validation_tokens(attrs \\ %{}) do
+    %ValidationTokens{}
+    |> ValidationTokens.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a validation_tokens.
+
+  ## Examples
+
+      iex> update_validation_tokens(validation_tokens, %{field: new_value})
+      {:ok, %ValidationTokens{}}
+
+      iex> update_validation_tokens(validation_tokens, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_validation_tokens(%ValidationTokens{} = validation_tokens, attrs) do
+    validation_tokens
+    |> ValidationTokens.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a ValidationTokens.
+
+  ## Examples
+
+      iex> delete_validation_tokens(validation_tokens)
+      {:ok, %ValidationTokens{}}
+
+      iex> delete_validation_tokens(validation_tokens)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_validation_tokens(%ValidationTokens{} = validation_tokens) do
+    Repo.delete(validation_tokens)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking validation_tokens changes.
+
+  ## Examples
+
+      iex> change_validation_tokens(validation_tokens)
+      %Ecto.Changeset{source: %ValidationTokens{}}
+
+  """
+  def change_validation_tokens(%ValidationTokens{} = validation_tokens) do
+    ValidationTokens.changeset(validation_tokens, %{})
   end
 end

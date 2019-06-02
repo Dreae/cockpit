@@ -1,17 +1,22 @@
-// We need to import the CSS so that webpack will load it.
-// The MiniCssExtractPlugin is used to separate it out into
-// its own CSS file.
-import css from "../css/app.css"
+var ctx = document.getElementById('pps_chart').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'line',
 
-// webpack automatically bundles all modules in your
-// entry points. Those entry points can be configured
-// in "webpack.config.js".
-//
-// Import dependencies
-//
-import "phoenix_html"
+    // The data for our dataset
+    data: {
+        labels: ['15:00', '15:10', '15:20', '15:30', '15:40', '15:50', '15:60'],
+        datasets: [{
+            label: 'Packets per Second',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: [0, 10, 5, 2, 20, 30, 45]
+        }]
+    },
 
-// Import local files
-//
-// Local files can be imported directly using relative paths, for example:
-// import socket from "./socket"
+    // Configuration options go here
+    options: {
+        responsive: true,
+        maintainAspectRatio: false
+    }
+});

@@ -1,15 +1,72 @@
-<div class="uk-navbar-container uk-sticky uk-sticky-fixed" uk-navbar>
+<div class="uk-sticky uk-sticky-fixed uk-light uk-background-secondary" uk-navbar>
     <div class="uk-navbar-left">
         <div class="uk-navbar-item uk-logo">Cockpit</div>
     </div>
     <div class="uk-navbar-right">
         <ul class="uk-navbar-nav">
+            <div class="uk-navbar-item uk-logo">
+                <img class="uk-border-circle" height="40" width="40" src="<%= gravatar(@conn) %>"/>
+            </div>
             <li>
                 <%= form_for @conn, Routes.page_path(@conn, :do_logout), [id: "logout_form"], fn f -> %>
                     <%= hidden_input f, :logout, value: true %>
-                    <a href="" onclick="document.getElementById('logout_form').submit(); return false;" class="uk-navbar-item">Logout</a>
+                    <a href="" onclick="document.getElementById('logout_form').submit(); return false;" uk-icon="sign-out" class="uk-navbar-item uk-icon-link"></a>
                 <% end %>
             </li>
         </ul>
+    </div>
+</div>
+
+<div class="uk-width-1-1 uk-background-muted uk-flex" uk-height-viewport="offset-top: true">
+    <div class="uk-width-medium uk-background-default" uk-height-viewport="offset-top: true">
+        <div class="uk-margin-left uk-margin-top">
+            <h3>Dashboard</h3>
+            <ul class="uk-nav uk-nav-default">
+                <li class="uk-active">
+                    <%= link "Home", to: Routes.dashboard_path(@conn, :index) %>
+                </li>
+                <li>
+                    <%= link "Settings", to: Routes.dashboard_path(@conn, :index) %>
+                </li>
+                <li class="uk-nav-header">Nodes</li>
+                <li>
+                    <%= link "Node list", to: Routes.dashboard_path(@conn, :index) %>
+                </li>
+                <li>
+                    <%= link "Add node", to: Routes.dashboard_path(@conn, :index) %>
+                </li>
+                <li class="uk-nav-header">Security</li>
+                <li>
+                    <%= link "SYN Signatures", to: Routes.dashboard_path(@conn, :index) %>
+                    <%= link "Packet Filtering", to: Routes.dashboard_path(@conn, :index) %>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="uk-width-expand uk-margin-left uk-margin-right">
+        <div class="uk-container">
+            <div class="uk-margin-top uk-width-1-1" uk-grid>
+                <div class="uk-margin-auto uk-card uk-card-default uk-card-body uk-width-medium uk-border-rounded">
+                    <h3 class="uk-card-title uk-text-muted">
+                        Connected nodes
+                    </h3>
+                    <h2>12/12</h2>
+                </div>
+                <div class="uk-margin-auto uk-card uk-card-default uk-card-body uk-width-medium uk-border-rounded">
+                    <h3 class="uk-card-title uk-text-muted">
+                        PPS
+                    </h3>
+                    <h2>1,290 PPS</h2>
+                </div>
+            </div>
+        </div>
+        <div class="uk-margin-large uk-card uk-card-default uk-card-body uk-width-expand">
+            <h3 class="uk-card-title uk-text-muted">
+                PPS
+            </h3>
+            <div class="uk-height-large">
+                <canvas id="pps_chart"></canvas>
+            </div>
+        </div>
     </div>
 </div>

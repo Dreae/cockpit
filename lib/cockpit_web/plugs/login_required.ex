@@ -7,8 +7,7 @@ defmodule CockpitWeb.Plugs.LoginRequired do
     end
 
     def call(conn, _params) do
-        user = conn.assigns[:user]
-        if user === nil do
+        if conn.assigns[:user] === nil do
             conn
             |> put_flash(:info, "You must be logged in.")
             |> redirect(to: Routes.page_path(conn, :get_login))

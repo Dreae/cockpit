@@ -1,9 +1,9 @@
 defmodule CockpitWeb.Plugs.GetUser do
-    import Plug.Conn
+    use CockpitWeb, :controller
     alias Cockpit.Accounts
 
     def init(_params) do
-        
+
     end
 
     def call(conn, _params) do

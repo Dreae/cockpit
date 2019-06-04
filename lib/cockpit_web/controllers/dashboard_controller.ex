@@ -2,9 +2,9 @@ defmodule CockpitWeb.DashboardController do
     use CockpitWeb, :controller
 
     def index(conn, _params) do
-        conn 
+        conn
         |> assign(:admin_template, "index.html")
         |> assign(:active_link, :index)
-        |> render "layout.html"
+        |> render("layout.html")
     end
 end

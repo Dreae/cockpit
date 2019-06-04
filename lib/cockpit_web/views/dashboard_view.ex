@@ -1,6 +1,5 @@
 defmodule CockpitWeb.DashboardView do
     use CockpitWeb, :view
-    import Phoenix.HTML
 
     def gravatar(conn) do
         hash = conn.assigns[:user].email
@@ -18,7 +17,6 @@ defmodule CockpitWeb.DashboardView do
             ""
         end
 
-        content_tag :li, content[:do], class: class 
+        content_tag :li, content[:do], class: class
     end
   end
-  

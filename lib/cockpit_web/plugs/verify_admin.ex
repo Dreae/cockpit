@@ -2,16 +2,17 @@ defmodule CockpitWeb.Plugs.VerifyAdmin do
     use CockpitWeb, :controller
 
     def init(_params) do
-        
+
     end
 
     def call(conn, _params) do
-        if !Ecto.assoc_loaded?(conn.assigns[:user].admin) do
-            conn
-            |> put_flash(:error, "You can't access that page")
-            |> redirect(to: Routes.page_path(conn, :index))
-        else
-            conn
+        case conn.assigns[:user].level do
+            :admin ->
+                conn
+            _ ->
+                conn
+                |> put_flash(:error, "You don't have access to this page")
+                |> redirect(to: Routes.page_path(conn, :index))
         end
     end
 end

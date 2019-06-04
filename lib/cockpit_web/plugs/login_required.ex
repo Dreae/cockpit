@@ -1,9 +1,8 @@
 defmodule CockpitWeb.Plugs.LoginRequired do
     use CockpitWeb, :controller
-    alias Cockpit.Accounts
 
     def init(_params) do
-        
+
     end
 
     def call(conn, _params) do

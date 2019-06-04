@@ -35,14 +35,14 @@ defmodule Cockpit.Accounts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id), do: Repo.one!(from u in User, where: u.id == ^id, preload: [:admin])
+  def get_user!(id), do: Repo.one!(from u in User, where: u.id == ^id)
 
   @doc """
   Gets a single user by username.
 
   """
   def get_user_by_username(username) do
-    Repo.one(from u in User, where: u.username == ^username, preload: [:admin])
+    Repo.one(from u in User, where: u.username == ^username)
   end
 
   @doc """

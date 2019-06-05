@@ -1,0 +1,17 @@
+doctype html
+html lang="en" 
+  head
+    meta charset="utf-8"
+    meta content="IE=edge" http-equiv="X-UA-Compatible"
+    meta content="width=device-width, initial-scale=1" name="viewport"
+    meta content="" name="description"
+    meta content="" name="author"
+    title Cockpit
+    link rel="stylesheet" href=Routes.static_path(@conn, "/css/app.css")
+    link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/css/uikit.min.css" integrity="sha256-sO/kKFCHPL4rhYHDyHC2dwGlaIBttifOfQ0ZaGLAheo=" crossorigin="anonymous"
+  body
+    = render @view_module, @view_template, assigns
+    script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit.min.js" integrity="sha256-jN++RwBoYassp9qTuZDfQuptszFdL1Pm4dKZWS5KjjY=" crossorigin="anonymous"
+    script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit-icons.min.js" integrity="sha256-6pktS+jePPdXx9oCn8r4hS5jR1eq0Ry7vbifYtG0LDU=" crossorigin="anonymous"
+    script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"
+    script src=Routes.static_path(@conn, "/js/app.js")

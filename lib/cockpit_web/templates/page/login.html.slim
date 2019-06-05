@@ -1,0 +1,21 @@
+.uk-section.uk-section-muted.uk-flex.uk-flex-middle.uk-animation-fade uk-height-viewport=true
+	.uk-width-1-1
+		.uk-container
+			.uk-grid-margin.uk-grid.uk-grid-stack
+				div class=".uk-width-1-1@m"
+					.uk-margin.uk-width-large.uk-margin-auto.uk-card.uk-card-default.uk-card-body.uk-box-shadow-large
+						h3.uk-card-title.uk-text-center Welcome back!
+						= form_for @conn, Routes.page_path(@conn, :do_login), fn f ->
+							.uk-margin
+								.uk-inline.uk-width-1-1
+									span.uk-form-icon uk-icon="icon: mail"
+									= text_input f, :username, class: "uk-input uk-form-large"
+							.uk-margin
+								.uk-inline.uk-width-1-1
+									span.uk-form-icon uk-icon="icon: lock"
+									= password_input f, :password, class: "uk-input uk-form-large"
+							.uk-margin
+								= submit "Login", class: "uk-button uk-button-primary uk-button-large uk-width-1-1"
+							.uk-text-small.uk-text-center
+								| Not registered&nbsp;
+								= link "Create an account", to: Routes.page_path(@conn, :get_login)

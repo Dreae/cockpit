@@ -1,0 +1,37 @@
+.uk-sticky.uk-sticky-fixed.uk-light.uk-background-secondary uk-navbar=true
+    .uk-navbar-left
+        .uk-navbar-item.uk-logo Cockpit
+    .uk-navbar-right
+        ul.uk-navbar-nav
+            .uk-navbar-item.uk-logo
+                img.uk-border-circle height=40 width=40 src=gravatar(@conn)
+            li
+                = form_for @conn, Routes.page_path(@conn, :do_logout), [id: "logout_form"], fn f ->
+                    = hidden_input f, :logout, value: true
+                    a.uk-navbar-item.uk-icon-link href="" onclick="document.getElementById('logout_form').submit(); return false;" uk-icon="sign-out"
+.uk-width-1-1.uk-background-muted.uk-flex uk-height-viewport="offset-top: true"
+    .uk-width-medium.uk-background-default uk-height-viewport="offset-top: true"
+        .uk-margin-left.uk-margin-top
+            h3 Dashboard
+            ul.uk-nav.uk-nav-default
+                = nav_link @conn, :index do
+                    = link "Home", to: Routes.dashboard_path(@conn, :index)
+                = nav_link @conn, :settings do
+                    = link "Settings", to: Routes.dashboard_path(@conn, :index)
+                li.uk-nav-header Security
+                = nav_link @conn, :syn_signatures do
+                    = link "SYN Signatures", to: Routes.dashboard_path(@conn, :index)
+                = nav_link @conn, :packet_filters do
+                    = link "Packet Filters", to: Routes.dashboard_path(@conn, :index)
+                li.uk-nav-header Game Servers
+                = nav_link @conn, :server_list do
+                    = link "List Servers", to: Routes.dashboard_path(@conn, :index)
+                = nav_link @conn, :add_server do
+                    = link "Add Server", to: Routes.dashboard_path(@conn, :index)
+                li.uk-nav-header Nodes
+                = nav_link @conn, :node_list do
+                    = link "List Nodes", to: Routes.dashboard_path(@conn, :index)
+                = nav_link @conn, :add_node do
+                    = link "Add Node", to: Routes.dashboard_path(@conn, :index)
+    .uk-width-expand.uk-margin-left.uk-margin-right
+        = render @view_module, @admin_template, assigns

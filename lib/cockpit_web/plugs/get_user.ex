@@ -7,11 +7,15 @@ defmodule CockpitWeb.Plugs.GetUser do
     end
 
     def call(conn, _params) do
-        user_id = get_session(conn, :user_id)
-        if user_id !== nil do
-            assign(conn, :user, Accounts.get_user!(user_id))
+        if conn.assigns[:user] do
+            conn
         else
-            assign(conn, :user, nil)
+            user_id = get_session(conn, :user_id)
+            if user_id !== nil do
+                assign(conn, :user, Accounts.get_user!(user_id))
+            else
+                assign(conn, :user, nil)
+            end
         end
     end
 end

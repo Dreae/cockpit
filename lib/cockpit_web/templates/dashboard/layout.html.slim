@@ -1,4 +1,6 @@
 .uk-sticky.uk-sticky-fixed.uk-light.uk-background-secondary uk-navbar=true
+    javascript:
+        window.socketToken = "#{Phoenix.Token.sign(@conn, "channel_user_salt", @user.id)}";
     .uk-navbar-left
         .uk-navbar-item.uk-logo Cockpit
     .uk-navbar-right

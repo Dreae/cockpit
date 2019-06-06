@@ -44,7 +44,8 @@ defmodule Cockpit.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:argon2_elixir, "~> 2.0.5"},
-      {:phoenix_slime, "~> 0.12.0"}
+      {:phoenix_slime, "~> 0.12.0"},
+      {:instream, "~> 0.21"}
     ]
   end
 

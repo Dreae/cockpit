@@ -9,6 +9,15 @@ config :cockpit, Cockpit.Repo,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
+config :cockpit, Cockpit.Timeseries.Connection,
+  database: "cockpit_nodes",
+  host: "localhost",
+  http_opts: [insecure: true],
+  pool: [max_overflow: 10, size: 50],
+  port: 8086,
+  scheme: "http",
+  writer: Instream.Writer.Line
+
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #

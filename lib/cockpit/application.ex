@@ -10,10 +10,12 @@ defmodule Cockpit.Application do
     children = [
       # Start the Ecto repository
       Cockpit.Repo,
+      Cockpit.Timeseries.Connection,
       # Start the endpoint when the application starts
-      CockpitWeb.Endpoint
+      CockpitWeb.Endpoint,
       # Starts a worker by calling: Cockpit.Worker.start_link(arg)
-      # {Cockpit.Worker, arg},
+      {Task.Supervisor, name: Cockpit.Agent.Supervisor},
+      {Cockpit.Agent, 1337}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

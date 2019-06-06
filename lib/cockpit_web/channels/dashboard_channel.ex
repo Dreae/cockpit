@@ -12,7 +12,7 @@ defmodule CockpitWeb.DashboardChannel do
   end
 
   def handle_info(:update, socket) do
-    push socket, "pps_update", %{pps: Enum.random(1000..2000)}
+    push(socket, "pps_update", %{pps: Enum.random(1000..2000)})
     {:noreply, socket}
   end
 end

@@ -17,7 +17,7 @@ defmodule Cockpit.Agent do
 
   def loop_accept(socket) do
     {:ok, client} = :gen_tcp.accept(socket)
-    {:ok, pid} = Task.Supervisor.start_child(Cockpit.Agent.Supervisor, Cockpit.Agent.NodeConnection, :serve, [client])
+    {:ok, pid} = DynamicSupervisor.start_child(Cockpit.Agent.Supervisor, {Cockpit.Agent.NodeConnection, client})
     :ok = :gen_tcp.controlling_process(client, pid)
 
     loop_accept(socket)

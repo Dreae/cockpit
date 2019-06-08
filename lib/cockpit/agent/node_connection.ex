@@ -1,28 +1,26 @@
 defmodule Cockpit.Agent.NodeConnection do
-  def serve(client) do
-    :inet.setopts(client, [active: :once])
-    receive do
-      msg ->
-        case Cockpit.Agent.NodeConnection.handle_info(msg) do
-          :ok ->
-            serve(client)
-          result ->
-            result
-        end
-    end
+  use GenServer
+
+  def start_link(client) do
+    GenServer.start_link(__MODULE__, client)
   end
 
-  def handle_info({:tcp, client, data}) do
+  def init(client) do
+    :inet.setopts(client, [active: :once])
+    {:ok, %{server_id: nil}}
+  end
+
+  def handle_info({:tcp, client, data}, %{server_id: nil}) do
     :gen_tcp.send(client, data)
     
-    :ok
+    {:ok, %{server_id: nil}}
   end
 
-  def handle_info({:tcp_closed, _client}) do
-    {:shutdown, "Socket closed"}
+  def handle_info({:tcp_closed, _client}, state) do
+    {:stop, :socket_closed, state}
   end
 
-  def handle_info({:tcp_error, _client}) do
-    {:shutdown, "Socket error"}
+  def handle_info({:tcp_error, state}) do
+    {:stop, :socket_error, state}
   end
 end

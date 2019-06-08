@@ -14,7 +14,7 @@ defmodule Cockpit.Application do
       # Start the endpoint when the application starts
       CockpitWeb.Endpoint,
       # Starts a worker by calling: Cockpit.Worker.start_link(arg)
-      {Task.Supervisor, name: Cockpit.Agent.Supervisor},
+      {DynamicSupervisor, strategy: :one_for_one, name: Cockpit.Agent.Supervisor},
       {Cockpit.Agent, 1337}
     ]
 

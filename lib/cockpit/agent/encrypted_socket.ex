@@ -12,6 +12,12 @@ defmodule Cockpit.Agent.EncryptedSocket do
     end
   end
 
+  def send_encrypted(data, %{socket: socket, server_id: server_id, session_key: session_key}) do
+    iv = :crypto.strong_rand_bytes(12)
+    {ciphertext, tag} = :crypto.crypto_one_time_aead(:chacha20_poly1305, session_key, iv, data, <<server_id::big-unsigned-32>>, 16, true)
+    :gen_tcp.send(socket, iv <> tag <> ciphertext)
+  end
+
   def handle_info({:tcp, client, data}, %{server_id: nil}) do
     :inet.setopts(client, [active: :once])
     Logger.debug("Received join message from new socket")

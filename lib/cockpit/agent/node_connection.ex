@@ -14,6 +14,7 @@ defmodule Cockpit.Agent.NodeConnection do
 
   def handle_info({:decrypted, "ping"}, %{server_id: id} = state) do
     Logger.debug("Got ping from Server:#{id}")
+    send_encrypted('pong', state)
 
     {:noreply, state}
   end

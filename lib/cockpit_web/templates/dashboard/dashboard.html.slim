@@ -1,0 +1,56 @@
+doctype html
+html lang="en" 
+  head
+    meta charset="utf-8"
+    meta content="IE=edge" http-equiv="X-UA-Compatible"
+    meta content="width=device-width, initial-scale=1" name="viewport"
+    meta content="" name="description"
+    meta content="" name="author"
+    title Cockpit
+    link rel="stylesheet" href=Routes.static_path(@conn, "/css/app.css")
+    link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/css/uikit.min.css" integrity="sha256-sO/kKFCHPL4rhYHDyHC2dwGlaIBttifOfQ0ZaGLAheo=" crossorigin="anonymous"
+  body
+    .uk-sticky.uk-sticky-fixed.uk-light.uk-background-secondary uk-navbar=true
+        javascript:
+            window.socketToken = "#{Phoenix.Token.sign(@conn, "channel_user_salt", @user.id)}";
+        .uk-navbar-left
+            .uk-navbar-item.uk-logo Cockpit
+        .uk-navbar-right
+            ul.uk-navbar-nav
+                .uk-navbar-item.uk-logo
+                    img.uk-border-circle height=40 width=40 src=gravatar(@conn)
+                li
+                    = form_for @conn, Routes.page_path(@conn, :do_logout), [id: "logout_form"], fn f ->
+                        = hidden_input f, :logout, value: true
+                        a.uk-navbar-item.uk-icon-link href="javascript:void(0)" onclick="document.getElementById('logout_form').submit(); return false;" uk-icon="sign-out"
+    .uk-width-1-1.uk-background-muted.uk-flex uk-height-viewport="offset-top: true"
+        .uk-width-medium.uk-background-default uk-height-viewport="offset-top: true"
+            .uk-margin-left.uk-margin-top
+                h3 Dashboard
+                ul.uk-nav.uk-nav-default
+                    = nav_link @conn, :index do
+                        = link "Home", to: Routes.dashboard_path(@conn, :index)
+                    = nav_link @conn, :settings do
+                        = link "Settings", to: Routes.dashboard_path(@conn, :index)
+                    li.uk-nav-header Security
+                    = nav_link @conn, :syn_signatures do
+                        = link "SYN Signatures", to: Routes.dashboard_path(@conn, :index)
+                    = nav_link @conn, :packet_filters do
+                        = link "Packet Filters", to: Routes.dashboard_path(@conn, :index)
+                    li.uk-nav-header Game Servers
+                    = nav_link @conn, :server_list do
+                        = link "List Servers", to: Routes.dashboard_path(@conn, :index)
+                    = nav_link @conn, :add_server do
+                        = link "Add Server", to: Routes.dashboard_path(@conn, :index)
+                    li.uk-nav-header Nodes
+                    = nav_link @conn, :node_list do
+                        = link "List Nodes", to: Routes.node_path(@conn, :index)
+                    = nav_link @conn, :add_node do
+                        = link "Add Node", to: Routes.dashboard_path(@conn, :index)
+        .uk-width-expand.uk-margin-left.uk-margin-right
+            = render @view_module, @view_template, assigns
+    script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit.min.js" integrity="sha256-jN++RwBoYassp9qTuZDfQuptszFdL1Pm4dKZWS5KjjY=" crossorigin="anonymous"
+    script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit-icons.min.js" integrity="sha256-6pktS+jePPdXx9oCn8r4hS5jR1eq0Ry7vbifYtG0LDU=" crossorigin="anonymous"
+    script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"
+    script src=Routes.static_path(@conn, "/js/app.js")
+

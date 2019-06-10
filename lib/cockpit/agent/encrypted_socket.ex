@@ -38,7 +38,6 @@ defmodule Cockpit.Agent.EncryptedSocket do
 
   def handle_info({:tcp, client, data}, %{server_id: server_id, session_key: session_key} = state) do
     :inet.setopts(client, [active: :once])
-    Logger.debug("Got message from Server:#{server_id}")
     
     <<iv::binary-size(12), tag::binary-size(16), ciphertext::binary>> = data
     <<body::binary>> = :crypto.crypto_one_time_aead(:chacha20_poly1305, session_key, iv, ciphertext, <<server_id::big-unsigned-32>>, tag, false)

@@ -18,6 +18,7 @@ defmodule CockpitWeb.Router do
     plug :browser
     plug CockpitWeb.Plugs.LoginRequired
     plug CockpitWeb.Plugs.VerifyAdmin
+    plug :put_layout, {CockpitWeb.DashboardView, :dashboard}
   end
 
   scope "/", CockpitWeb do
@@ -33,6 +34,8 @@ defmodule CockpitWeb.Router do
     pipe_through :admin
 
     get "/", DashboardController, :index
+    post "/nodes/:id/reboot", NodeController, :reboot
+    resources "/nodes", NodeController
     resources "/users", UserController
   end
 end

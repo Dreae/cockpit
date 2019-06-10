@@ -3,8 +3,7 @@ defmodule CockpitWeb.DashboardController do
 
     def index(conn, _params) do
         conn
-        |> assign(:admin_template, "index.html")
         |> assign(:active_link, :index)
-        |> render("layout.html")
+        |> render("index.html")
     end
 end

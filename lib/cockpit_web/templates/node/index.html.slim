@@ -1,0 +1,22 @@
+.uk-margin-large.uk-card.uk-card-default.uk-card-body.uk-width-expand.uk-margin-top
+  table.uk-table.uk-table-divider.uk-table-middle
+    thead
+      tr
+        th Node
+        th PPS
+        th Status
+        th.uk-table-shrink Action
+    tbody
+      = for server <- @servers do
+        tr
+          td 
+            | #{server.name}
+            br
+            span.uk-text-muted #{server.address}
+          td 123
+          td.uk-text-success Up
+          td
+            = link "", to: Routes.node_path(@conn, :edit, server), uk_icon: "file-edit"
+            = form_for @conn, Routes.node_path(@conn, :reboot, server), [id: "reboot_#{server.id}", class: "uk-display-inline"], fn f -> 
+              = hidden_input f, :reboot, value: true
+              a href="javascript:void(0)" onclick="document.getElementById('reboot_#{server.id}').submit(); return false;" uk-icon="refresh"

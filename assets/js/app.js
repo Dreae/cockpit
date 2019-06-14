@@ -9,12 +9,10 @@ channel.join()
 // TODO: Better way to handle this
 channel.on("pps_update", payload => {
     let ppsCounter = document.getElementById("pps-counter");
-    let ppsString = payload.pps.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    let newNode = document.createElement("h2");
-
-    newNode.id = "pps-counter";
-    newNode.innerText = `${ppsString} PPS`;
-    ppsCounter.parentNode.replaceChild(newNode, ppsCounter);
+    if (ppsCounter) {
+        let ppsString = payload.pps.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        ppsCounter.innerText = `${ppsString} PPS`;
+    }
 });
 
 var ctx = document.getElementById('pps_chart').getContext('2d');

@@ -12,13 +12,24 @@ defmodule Cockpit.Agent.NodeConnection do
     {:ok, %{server_id: nil, socket: client}}
   end
 
-  def handle_info({:decrypted, "ping"}, %{server_id: id} = state) do
+  def handle_info({:connected, server_id}, state) do
+    Phoenix.PubSub.subscribe(Cockpit.PubSub, "CockpitNode:#{server_id}")
+
+    {:noreply, state}
+  end
+
+  def handle_info({:decrypted, "ping"}, state) do
     send_encrypted('pong', state)
 
     {:noreply, state}
   end
 
-  def handle_info({:decrypted, <<"pps", _pps::big-unsigned-32>>}, state) do
+  def handle_info({:decrypted, <<"pps", _pps::big-unsigned-64>>}, state) do
+    {:noreply, state}
+  end
+
+  def handle_info({:server_update, server_info}, state) do
+    
     {:noreply, state}
   end
 end

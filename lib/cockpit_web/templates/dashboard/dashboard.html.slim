@@ -17,6 +17,8 @@ html lang="en"
             .uk-navbar-item.uk-logo Cockpit
         .uk-navbar-right
             ul.uk-navbar-nav
+                .uk-navbar-item
+                    div#pps-counter 0 PPS
                 .uk-navbar-item.uk-logo
                     img.uk-border-circle height=40 width=40 src=gravatar(@conn)
                 li
@@ -39,7 +41,7 @@ html lang="en"
                         = link "Packet Filters", to: Routes.dashboard_path(@conn, :index)
                     li.uk-nav-header Game Servers
                     = nav_link @conn, :server_list do
-                        = link "List Servers", to: Routes.dashboard_path(@conn, :index)
+                        = link "List Servers", to: Routes.game_server_path(@conn, :index)
                     = nav_link @conn, :add_server do
                         = link "Add Server", to: Routes.dashboard_path(@conn, :index)
                     li.uk-nav-header Nodes

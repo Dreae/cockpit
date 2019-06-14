@@ -101,4 +101,8 @@ defmodule Cockpit.GameServers do
   def change_game_server(%GameServer{} = game_server) do
     GameServer.changeset(game_server, %{})
   end
+
+  def count_game_servers() do
+    Repo.aggregate(from(s in "game_servers"), :count, :id)
+  end
 end

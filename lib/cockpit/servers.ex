@@ -101,4 +101,8 @@ defmodule Cockpit.Servers do
   def change_server(%Server{} = server) do
     Server.changeset(server, %{})
   end
+
+  def count_servers() do
+    Repo.aggregate(from(s in "servers"), :count, :id)
+  end
 end

@@ -1,4 +1,4 @@
-defmodule Cockpit.AtomType do
+defmodule Cockpit.Ecto.Atom do
   @behaviour Ecto.Type
 
   def type, do: :string

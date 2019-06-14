@@ -32,6 +32,8 @@ defmodule Cockpit.Agent.EncryptedSocket do
     Logger.debug("Sending public key")
     :gen_tcp.send(client, new_iv <> tag <> ciphertext)
 
+    send self(), {:connected, server.id}
+
     session_key = :crypto.compute_key(:ecdh, public_key, private_key, :prime256v1)
     {:noreply, %{server_id: server.id, socket: client, session_key: :crypto.hash(:sha512, session_key)}}
   end

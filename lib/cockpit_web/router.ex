@@ -37,5 +37,6 @@ defmodule CockpitWeb.Router do
     post "/nodes/:id/reboot", NodeController, :reboot
     resources "/nodes", NodeController
     resources "/users", UserController
+    resources "/gameservers", GameServerController
   end
 end

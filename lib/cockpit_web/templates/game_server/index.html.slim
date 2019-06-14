@@ -1,0 +1,25 @@
+.uk-margin-large.uk-card.uk-card-default.uk-card-body.uk-width-expand.uk-margin-top
+  table.uk-table.uk-table-divider.uk-table-middle
+    thead
+      tr
+        th Bind Address
+        th Destination
+        th Internal IP
+        th.uk-table-shrink Action
+    tbody
+      = for server <- @servers do
+        tr
+          td 
+            | #{ip_to_string(server.bind)}
+            br
+            span.uk-text-muted #{server.bind_port}
+          td 
+            | #{ip_to_string(server.dest)}
+            br
+            span.uk-text-muted #{server.dest_port}
+          td #{ip_to_string(server.internal_ip)}
+          td
+            = link "", to: Routes.game_server_path(@conn, :edit, server), uk_icon: "file-edit"
+            = form_for @conn, Routes.game_server_path(@conn, :delete, server), [method: :delete, id: "delete_#{server.id}", class: "uk-display-inline"], fn f -> 
+              = hidden_input f, :delete, value: true
+              a href="javascript:void(0)" onclick="document.getElementById('delete_#{server.id}').submit(); return false;" uk-icon="trash"

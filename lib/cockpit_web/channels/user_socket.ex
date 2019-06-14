@@ -16,7 +16,7 @@ defmodule CockpitWeb.UserSocket do
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
   def connect(%{"token" => token}, socket, _connect_info) do
-    case Phoenix.Token.verify(socket, "channel_user_salt", token, max_age: 86400) do
+    case Phoenix.Token.verify(socket, "channel_user_salt", token, max_age: 86_400) do
       {:ok, user_id} ->
         {:ok, assign(socket, :user, Accounts.get_user!(user_id))}
       {:error, _} ->

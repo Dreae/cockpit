@@ -2,11 +2,13 @@ defmodule Cockpit.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Cockpit.Ecto.Atom
+
   schema "users" do
     field :email, :string
     field :password, :string
     field :username, :string
-    field :level, Cockpit.AtomType
+    field :level, Atom
 
     timestamps()
   end

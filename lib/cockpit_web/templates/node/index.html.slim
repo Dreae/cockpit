@@ -14,7 +14,10 @@
             br
             span.uk-text-muted #{server.address}
           td 123
-          td.uk-text-success Up
+          = if server.status == :up do
+            td.uk-text-success Up
+          - else
+            td.uk-text-danger Down
           td
             = link "", to: Routes.node_path(@conn, :edit, server), uk_icon: "file-edit"
             = form_for @conn, Routes.node_path(@conn, :reboot, server), [id: "reboot_#{server.id}", class: "uk-display-inline"], fn f -> 

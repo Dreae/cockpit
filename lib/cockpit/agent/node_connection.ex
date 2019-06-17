@@ -2,6 +2,8 @@ defmodule Cockpit.Agent.NodeConnection do
   use GenServer
   use Cockpit.Agent.EncryptedSocket
   require Logger
+  
+  alias Cockpit.Servers
 
   def start_link(client) do
     GenServer.start_link(__MODULE__, client)
@@ -15,6 +17,7 @@ defmodule Cockpit.Agent.NodeConnection do
   def handle_info({:connected, server_id}, state) do
     Phoenix.PubSub.subscribe(Cockpit.PubSub, "CockpitNode:#{server_id}")
     Phoenix.PubSub.subscribe(Cockpit.PubSub, "GameServers:updates")
+    Servers.set_status(server_id, :up)
 
     {:noreply, state}
   end
@@ -51,5 +54,9 @@ defmodule Cockpit.Agent.NodeConnection do
     send_encrypted(packet, state)
 
     {:noreply, state}
+  end
+
+  def terminate(_reason, %{server_id: server_id}) do
+    Servers.set_status(server_id, :down)
   end
 end

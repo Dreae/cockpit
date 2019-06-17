@@ -105,4 +105,13 @@ defmodule Cockpit.Servers do
   def count_servers() do
     Repo.aggregate(from(s in "servers"), :count, :id)
   end
+
+  def count_connected_servers() do
+    Repo.aggregate(from(s in "servers", where: s.status == "up"), :count, :id)
+  end
+
+  def set_status(server_id, status) do
+    get_server!(server_id)
+    |> update_server(%{status: status})
+  end
 end

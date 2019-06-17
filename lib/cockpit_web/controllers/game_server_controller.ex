@@ -6,7 +6,7 @@ defmodule CockpitWeb.GameServerController do
   def index(conn, _params) do
     servers = GameServers.list_game_servers()
     conn
-    |> assign(:active_link, :node_list)
+    |> assign(:active_link, :server_list)
     |> render("index.html", servers: servers)
   end
 

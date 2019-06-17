@@ -1,0 +1,27 @@
+= form_for @changeset, @action, fn f ->
+  fieldset.uk-fieldset.uk-grid-small uk-grid="true"
+    .uk-width-1-1
+      = label f, :name, [class: "uk-form-label"]
+      = text_input f, :name, [class: "uk-input"]
+      = error_tag f, :name
+    div class="uk-width-1-2@s"
+      = label f, :bind, [class: "uk-form-label"]
+      = text_input f, :bind, [class: "uk-input"]
+    div class="uk-width-1-2@s"
+      = label f, :bind_port, [class: "uk-form-label"]
+      = text_input f, :bind_port, [class: "uk-input"]
+    div class="uk-width-1-2@s"
+      = label f, :dest, [class: "uk-form-label"]
+      = text_input f, :dest, [class: "uk-input"]
+    div class="uk-width-1-2@s"
+      = label f, :dest_port, [class: "uk-form-label"]
+      = text_input f, :dest_port, [class: "uk-input"]
+    div class="uk-width-1-2@s"
+      = label f, :cache_time, [class: "uk-form-label"]
+      = number_input f, :cache_time, [class: "uk-input"]
+    div class="uk-width-1-2@s"
+      = label f, :a2s_info_cache, [class: "uk-form-label"] do
+        = "A2S_INFO cache"
+      = number_input f, :a2s_info_cache, [class: "uk-input"]
+  .uk-margin
+    = submit "Save", [class: "uk-button uk-button-primary"]

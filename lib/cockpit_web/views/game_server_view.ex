@@ -1,7 +1,7 @@
 defmodule CockpitWeb.GameServerView do
   use CockpitWeb, :view
 
-  def ip_to_string(ip_addr) do
-    :inet.ntoa(ip_addr)
+  defimpl Phoenix.HTML.Safe, for: Tuple do
+    def to_iodata(data), do: data |> :inet.ntoa()
   end
 end

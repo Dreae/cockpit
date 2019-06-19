@@ -76,9 +76,16 @@ defmodule Cockpit.Accounts do
 
   """
   def update_user(%User{} = user, attrs) do
-    user
-    |> User.changeset(attrs)
-    |> Repo.update()
+    case attrs do
+      %{"password" => ""} ->
+        user
+        |> User.changeset_no_passwd(attrs)
+        |> Repo.update()
+      _ ->
+        user
+        |> User.changeset(attrs)
+        |> Repo.update()
+    end
   end
 
   @doc """

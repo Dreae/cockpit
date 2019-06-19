@@ -1,0 +1,26 @@
+.uk-margin-large.uk-card.uk-card-default.uk-card-body.uk-width-expand.uk-margin-top
+  h2.uk-text-muted New User
+  = form_for @changeset, Routes.user_path(@conn, :create), fn f ->
+    fieldset.uk-fieldset.uk-grid-small uk-grid="true"
+      .uk-width-1-1
+        = label f, :username, [class: "uk-form-label"]
+        = text_input f, :username, [class: "uk-input"]
+        = error_tag f, :username
+      .uk-width-1-1
+        = label f, :email, [class: "uk-form-label"]
+        = text_input f, :email, [class: "uk-input"]
+        = error_tag f, :email
+      .uk-width-1-1
+        = label f, :level, [class: "uk-form-label"]
+        = select f, :level, [:admin, :user], [class: "uk-input"]
+        = error_tag f, :level
+      .uk-width-1-1
+        = label f, :password, [class: "uk-form-label"]
+        = password_input f, :password, [class: "uk-input"]
+        = error_tag f, :password
+      .uk-width-1-1
+        = label f, :password_confirmation, [class: "uk-form-label"]
+        = password_input f, :password_confirmation, [class: "uk-input"]
+        = error_tag f, :password_confirmation
+    .uk-margin
+      = submit "Save", [class: "uk-button uk-button-primary"]

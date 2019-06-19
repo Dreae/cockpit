@@ -49,6 +49,11 @@ html lang="en"
                         = link "List Nodes", to: Routes.node_path(@conn, :index)
                     = nav_link @conn, :add_node do
                         = link "Add Node", to: Routes.dashboard_path(@conn, :index)
+                    li.uk-nav-header Users
+                    = nav_link @conn, :user_list do
+                        = link "List Users", to: Routes.user_path(@conn, :index)
+                    = nav_link @conn, :add_user do
+                        = link "Add User", to: Routes.user_path(@conn, :new)
         .uk-width-expand.uk-margin-left.uk-margin-right
             = render @view_module, @view_template, assigns
     script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit.min.js" integrity="sha256-jN++RwBoYassp9qTuZDfQuptszFdL1Pm4dKZWS5KjjY=" crossorigin="anonymous"

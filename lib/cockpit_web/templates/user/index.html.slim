@@ -1,0 +1,19 @@
+.uk-margin-large.uk-card.uk-card-default.uk-card-body.uk-width-expand.uk-margin-top
+  table.uk-table.uk-table-divider.uk-table-middle
+    thead
+      tr
+        th Username
+        th Email
+        th Level
+        th.uk-table-shrink Action
+    tbody
+      = for user <- @users do
+        tr
+          td #{user.username}
+          td #{user.email}
+          td #{user.level}
+          td
+            = link "", to: Routes.user_path(@conn, :edit, user), uk_icon: "file-edit"
+            = form_for @conn, Routes.user_path(@conn, :delete, user), [id: "delete_#{user.id}", class: "uk-display-inline", method: :delete], fn f -> 
+              = hidden_input f, :reboot, value: true
+              a href="javascript:void(0)" onclick="document.getElementById('delete_#{user.id}').submit(); return false;" uk-icon="trash"

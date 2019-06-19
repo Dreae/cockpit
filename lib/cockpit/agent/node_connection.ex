@@ -4,6 +4,7 @@ defmodule Cockpit.Agent.NodeConnection do
   require Logger
   
   alias Cockpit.Servers
+  alias Cockpit.GameServers
 
   def start_link(client) do
     GenServer.start_link(__MODULE__, client)
@@ -32,9 +33,17 @@ defmodule Cockpit.Agent.NodeConnection do
     {:noreply, state}
   end
 
+  def handle_info({:decrypted, <<"server_list">>}, state) do
+    Enum.map GameServers.list_game_servers(), fn gameserver ->
+      send self(), {:server_update, gameserver}
+    end
+
+    {:noreply, state}
+  end
+
   # https://gitlab.com/Dreae/compressor/blob/master/src/cockpit_port.h#L40
   # TODO: Figure out a better place to do this
-  def handle_info({:server_update, %Cockpit.GameServers.GameServer{} = server_info}, state) do
+  def handle_info({:server_update, %GameServers.GameServer{} = server_info}, state) do
     {bind_octet_1, bind_octet_2, bind_octet_3, bind_octet_4} = server_info.bind
     {dest_octet_1, dest_octet_2, dest_octet_3, dest_octet_4} = server_info.dest
     {inte_octet_1, inte_octet_2, inte_octet_3, inte_octet_4} = server_info.internal_ip

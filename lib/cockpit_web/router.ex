@@ -14,11 +14,18 @@ defmodule CockpitWeb.Router do
     plug :accepts, ["json"]
   end
 
-  pipeline :admin do
+  pipeline :authenticate do
     plug :browser
     plug CockpitWeb.Plugs.LoginRequired
-    plug CockpitWeb.Plugs.VerifyAdmin
     plug :put_layout, {CockpitWeb.DashboardView, :dashboard}
+  end
+
+  pipeline :authorize_admin do
+    plug CockpitWeb.Plugs.Authorize, :admin
+  end
+
+  pipeline :authorize_manager do
+    plug CockpitWeb.Plugs.Authorize, :manager
   end
 
   scope "/", CockpitWeb do
@@ -31,12 +38,19 @@ defmodule CockpitWeb.Router do
   end
 
   scope "/dashboard", CockpitWeb do
-    pipe_through :admin
+    pipe_through [:authenticate, :authorize_admin]
 
-    get "/", DashboardController, :index
     post "/nodes/:id/reboot", NodeController, :reboot
-    resources "/nodes", NodeController
-    resources "/users", UserController
+    resources "/nodes", NodeController, except: [:index]
+    resources "/users", UserController, except: [:index, :show]
+  end
+  
+  scope "/dashboard", CockpitWeb do
+    pipe_through [:authenticate, :authorize_manager]
+    
+    get "/", DashboardController, :index
+    resources "/nodes", NodeController, only: [:index]
+    resources "/users", UserController, only: [:index, :show]
     resources "/gameservers", GameServerController
   end
 end

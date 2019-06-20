@@ -18,7 +18,7 @@ defmodule Cockpit.Accounts.User do
     user
     |> cast(attrs, [:username, :email, :password, :level])
     |> validate_required([:username, :email, :password, :level])
-    |> validate_inclusion(:level, [:admin, :user])
+    |> validate_inclusion(:level, [:admin, :manager, :user])
     |> unique_constraint(:username)
     |> unique_constraint(:email)
     |> validate_confirmation(:password)

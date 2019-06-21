@@ -49,7 +49,7 @@ html lang="en"
                     = nav_link @conn, :node_list do
                         = link "List Nodes", to: Routes.node_path(@conn, :index)
                     = nav_link @conn, :add_node do
-                        = link "Add Node", to: Routes.dashboard_path(@conn, :index)
+                        = link "Add Node", to: Routes.node_path(@conn, :new)
                     li.uk-nav-header Users
                     = nav_link @conn, :user_list do
                         = link "List Users", to: Routes.user_path(@conn, :index)

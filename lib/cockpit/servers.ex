@@ -114,4 +114,8 @@ defmodule Cockpit.Servers do
     get_server!(server_id)
     |> update_server(%{status: status})
   end
+
+  def gen_token do
+    Base.encode64(:crypto.strong_rand_bytes(32))
+  end
 end

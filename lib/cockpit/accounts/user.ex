@@ -15,24 +15,23 @@ defmodule Cockpit.Accounts.User do
 
   @doc false
   def changeset(user, attrs) do
-    user
-    |> cast(attrs, [:username, :email, :password, :level])
-    |> validate_required([:username, :email, :password, :level])
-    |> validate_inclusion(:level, [:admin, :manager, :user])
-    |> unique_constraint(:username)
-    |> unique_constraint(:email)
+    base_changeset(user, attrs)
     |> validate_confirmation(:password)
     |> hash_password()
   end
 
   def changeset_no_passwd(user, attrs) do
+    base_changeset(user, attrs)
+    |> delete_change(:password)
+  end
+
+  def base_changeset(user, attrs) do
     user
     |> cast(attrs, [:username, :email, :level])
     |> validate_required([:username, :email, :level])
-    |> validate_inclusion(:level, [:admin, :user])
+    |> validate_inclusion(:level, [:admin, :manager, :user])
     |> unique_constraint(:username)
     |> unique_constraint(:email)
-    |> delete_change(:password)
   end
 
   def hash_password(user) do

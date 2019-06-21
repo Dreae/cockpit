@@ -4,6 +4,7 @@
     table.uk-table.uk-table-divider.uk-table-middle
       thead
         tr
+          th.uk-table-shrink
           th Username
           th Email
           th Level
@@ -11,6 +12,8 @@
       tbody
         = for user <- @users do
           tr
+            td
+              img.uk-preserve-width.uk-border-circle src="#{gravatar(user)}" width="40"
             td #{user.username}
             td #{user.email}
             td #{user.level}

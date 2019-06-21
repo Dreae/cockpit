@@ -9,17 +9,19 @@ html lang="en"
     title Cockpit
     link rel="stylesheet" href=Routes.static_path(@conn, "/css/app.css")
   body
-    .uk-sticky.uk-sticky-fixed.uk-background-muted.navbar uk-navbar=true
+    .uk-sticky.uk-sticky-fixed.navbar uk-navbar=true
         javascript:
-            window.socketToken = "#{Phoenix.Token.sign(@conn, "channel_user_salt", @user.id)}";
+            window.socketToken = "#{Phoenix.Token.sign(@conn, "channel_user_salt", @current_user.id)}";
         .uk-navbar-left
-            .uk-navbar-item.uk-logo Cockpit
+            .uk-navbar-item.uk-logo.uk-text-primary Cockpit
         .uk-navbar-right
             ul.uk-navbar-nav
                 .uk-navbar-item
                     div#pps-counter 0 PPS
                 .uk-navbar-item.uk-logo
-                    img.uk-border-circle height=40 width=40 src=gravatar(@conn)
+                    img.uk-border-circle height=40 width=40 src=gravatar(@current_user)
+                li
+                    a.uk-navbar-item.uk-icon-link href="#{Routes.user_path(@conn, :index)}" uk-icon="cog"
                 li
                     = form_for @conn, Routes.page_path(@conn, :do_logout), [id: "logout_form"], fn f ->
                         = hidden_input f, :logout, value: true

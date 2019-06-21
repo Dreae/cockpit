@@ -6,12 +6,16 @@ defmodule CockpitWeb.UserController do
 
   def index(conn, _params) do
     users = Accounts.list_users()
-    render(conn, "index.html", users: users)
+    conn
+    |> assign(:active_link, :user_list)
+    |> render("index.html", users: users)
   end
 
   def new(conn, _params) do
     changeset = Accounts.change_user(%User{})
-    render(conn, "new.html", changeset: changeset)
+    conn
+    |> assign(:active_link, :add_user)
+    |> render("new.html", changeset: changeset)
   end
 
   def create(conn, %{"user" => user_params}) do

@@ -4,7 +4,7 @@ defmodule CockpitWeb.Plugs.Authorize do
   def init(level), do: level
 
   def call(conn, level) do
-    if conn.assigns[:user].level ~> level do
+    if conn.assigns[:current_user].level ~> level do
       conn
     else
       conn

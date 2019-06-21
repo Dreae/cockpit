@@ -8,9 +8,8 @@ html lang="en"
     meta content="" name="author"
     title Cockpit
     link rel="stylesheet" href=Routes.static_path(@conn, "/css/app.css")
-    link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/css/uikit.min.css" integrity="sha256-sO/kKFCHPL4rhYHDyHC2dwGlaIBttifOfQ0ZaGLAheo=" crossorigin="anonymous"
   body
-    .uk-sticky.uk-sticky-fixed.uk-light.uk-background-secondary uk-navbar=true
+    .uk-sticky.uk-sticky-fixed.uk-background-muted.navbar uk-navbar=true
         javascript:
             window.socketToken = "#{Phoenix.Token.sign(@conn, "channel_user_salt", @user.id)}";
         .uk-navbar-left
@@ -56,8 +55,6 @@ html lang="en"
                         = link "Add User", to: Routes.user_path(@conn, :new)
         .uk-width-expand.uk-margin-left.uk-margin-right
             = render @view_module, @view_template, assigns
-    script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit.min.js" integrity="sha256-jN++RwBoYassp9qTuZDfQuptszFdL1Pm4dKZWS5KjjY=" crossorigin="anonymous"
-    script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit-icons.min.js" integrity="sha256-6pktS+jePPdXx9oCn8r4hS5jR1eq0Ry7vbifYtG0LDU=" crossorigin="anonymous"
     script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"
     script src=Routes.static_path(@conn, "/js/app.js")
 

@@ -1,4 +1,10 @@
-import socket from "./socket"
+import socket from "./socket";
+import UIkit from "uikit";
+import Icons from "uikit/dist/js/uikit-icons";
+
+import "../sass/app.scss"
+
+UIkit.use(Icons);
 
 // Now that you are connected, you can join channels with a topic:
 let channel = socket.channel("dashboard:pps", {})

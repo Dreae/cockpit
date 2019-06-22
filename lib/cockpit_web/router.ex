@@ -17,6 +17,10 @@ defmodule CockpitWeb.Router do
   pipeline :authenticate do
     plug :browser
     plug CockpitWeb.Plugs.LoginRequired
+  end
+
+  pipeline :dashboard do
+    plug :authenticate
     plug :put_layout, {CockpitWeb.DashboardView, :dashboard}
   end
 
@@ -36,9 +40,15 @@ defmodule CockpitWeb.Router do
     post "/login", PageController, :do_login
     post "/logout", PageController, :do_logout
   end
+  scope "/", CockpitWeb do
+    pipe_through :authenticate
+
+    get "/settings", PageController, :get_account_settings
+    put "/settings", PageController, :update_account_settings
+  end
 
   scope "/dashboard", CockpitWeb do
-    pipe_through [:authenticate, :authorize_admin]
+    pipe_through [:dashboard, :authorize_admin]
 
     post "/nodes/:id/reboot", NodeController, :reboot
     resources "/nodes", NodeController, except: [:index]
@@ -46,7 +56,7 @@ defmodule CockpitWeb.Router do
   end
   
   scope "/dashboard", CockpitWeb do
-    pipe_through [:authenticate, :authorize_manager]
+    pipe_through [:dashboard, :authorize_manager]
     
     get "/", DashboardController, :index
     resources "/nodes", NodeController, only: [:index]

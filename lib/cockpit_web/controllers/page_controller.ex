@@ -38,4 +38,42 @@ defmodule CockpitWeb.PageController do
     |> put_session(:user_id, nil)
     |> redirect(to: Routes.page_path(conn, :index))
   end
+
+  def get_account_settings(conn, _params) do
+    changeset = Accounts.change_user(conn.assigns[:current_user])
+    render(conn, "user_settings.html", changeset: changeset)
+  end
+
+  def update_account_settings(conn, %{"user" => user_params}) do
+    safe_params = user_params
+      |> Map.delete("level")
+      |> Map.delete("username")
+
+    password_match = case safe_params do
+      %{"current_password" => ""} ->
+        true
+      %{"current_password" => password} ->
+        Argon2.verify_pass(password, conn.assigns[:current_user].password)
+      _ ->
+        false
+    end
+
+    if password_match do
+      case Accounts.update_user(conn.assigns[:current_user], safe_params) do
+        {:ok, user} ->
+          changeset = Accounts.change_user(user)
+          conn
+          |> put_flash(:info, "User updated successfully.")
+          |> render("user_settings.html", changeset: changeset)
+
+        {:error, %Ecto.Changeset{} = changeset} ->
+          render(conn, "user_settings.html", changeset: changeset)
+      end
+    else
+      changeset = Accounts.change_user(conn.assigns[:current_user])
+        |> Ecto.Changeset.add_error(:current_password, "incorrect password")
+
+      render(conn, "user_settings.html", changeset: changeset)
+    end
+  end
 end

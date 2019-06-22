@@ -20,6 +20,18 @@ defmodule CockpitWeb.NodeController do
     |> render("new.html")
   end
 
+  def create(conn, %{"server" => server_params}) do
+    case Servers.create_server(server_params) do
+      {:ok, _server} ->
+        conn
+        |> put_flash(:info, "Server created successfully.")
+        |> redirect(to: Routes.node_path(conn, :index))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "new.html", changeset: changeset)
+    end
+  end
+
   def reboot(conn, _params) do
     redirect conn, to: Routes.node_path(conn, :index)
   end

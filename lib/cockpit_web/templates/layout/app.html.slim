@@ -9,6 +9,8 @@ html lang="en"
     title Cockpit
     link rel="stylesheet" href=Routes.static_path(@conn, "/css/app.css")
   body
-    = render @view_module, @view_template, assigns
+    .uk-width-1-1.uk-background-muted.uk-flex uk-height-viewport="offset-top: true"
+      .uk-margin-auto.uk-margin-top
+        = render @view_module, @view_template, assigns
     script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"
     script src=Routes.static_path(@conn, "/js/app.js")

@@ -9,7 +9,7 @@ defmodule Cockpit.Servers.Server do
     field :api_key, :string
     field :name, :string
     field :port, :integer
-    field :status, Atom
+    field :status, Atom, default: :down
 
     timestamps()
   end

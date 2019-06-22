@@ -21,7 +21,7 @@ html lang="en"
                 .uk-navbar-item.uk-logo
                     img.uk-border-circle height=40 width=40 src=gravatar(@current_user)
                 li
-                    a.uk-navbar-item.uk-icon-link href="#{Routes.user_path(@conn, :index)}" uk-icon="cog"
+                    a.uk-navbar-item.uk-icon-link href="#{Routes.page_path(@conn, :get_account_settings)}" uk-icon="cog"
                 li
                     = form_for @conn, Routes.page_path(@conn, :do_logout), [id: "logout_form"], fn f ->
                         = hidden_input f, :logout, value: true

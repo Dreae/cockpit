@@ -76,16 +76,16 @@ defmodule Cockpit.Accounts do
 
   """
   def update_user(%User{} = user, attrs) do
-    case attrs do
+    attrs = case attrs do
       %{"password" => ""} ->
-        user
-        |> User.changeset_no_passwd(attrs)
-        |> Repo.update()
+        Map.delete(attrs, "password") |> Map.delete("password_confirmation")
       _ ->
-        user
-        |> User.changeset(attrs)
-        |> Repo.update()
+        attrs
     end
+    
+    user
+    |> User.changeset(attrs)
+    |> Repo.update()
   end
 
   @doc """

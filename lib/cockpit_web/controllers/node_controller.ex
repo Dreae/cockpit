@@ -32,6 +32,12 @@ defmodule CockpitWeb.NodeController do
     end
   end
 
+  def edit(conn, %{"id" => id}) do
+    node = Servers.get_server!(id)
+    changeset = Servers.change_server(node)
+    render(conn, "edit.html", node: node, changeset: changeset)
+  end
+
   def reboot(conn, _params) do
     redirect conn, to: Routes.node_path(conn, :index)
   end

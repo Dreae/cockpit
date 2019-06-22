@@ -1,3 +1,4 @@
-.uk-margin-large.uk-card.uk-card-default.uk-card-body.uk-width-expand.uk-margin-top
-  h2.uk-text-muted Edit Game Server
-  = render "form.html", Map.put(assigns, :action, Routes.game_server_path(@conn, :update, @game_server))
+.h3-section.uk-margin-large.uk-width-expand.uk-margin-top
+  h3.header Edit Game Server
+  .body
+    = render "form.html", Map.put(assigns, :action, Routes.game_server_path(@conn, :update, @game_server))

@@ -7,21 +7,34 @@
     div class="uk-width-1-2@s"
       = label f, :bind, [class: "uk-form-label"]
       = text_input f, :bind, [class: "uk-input"]
+      = error_tag f, :bind
     div class="uk-width-1-2@s"
       = label f, :bind_port, [class: "uk-form-label"]
-      = text_input f, :bind_port, [class: "uk-input"]
+      = number_input f, :bind_port, [class: "uk-input"]
+      = error_tag f, :bind_port
     div class="uk-width-1-2@s"
       = label f, :dest, [class: "uk-form-label"]
       = text_input f, :dest, [class: "uk-input"]
+      = error_tag f, :dest
     div class="uk-width-1-2@s"
       = label f, :dest_port, [class: "uk-form-label"]
-      = text_input f, :dest_port, [class: "uk-input"]
+      = number_input f, :dest_port, [class: "uk-input", min: 0, max: 65535, default: 27015]
+      = error_tag f, :dest_port
     div class="uk-width-1-2@s"
       = label f, :cache_time, [class: "uk-form-label"]
-      = number_input f, :cache_time, [class: "uk-input"]
+      = number_input f, :cache_time, [class: "uk-input", default: 60, min: 0]
+      = error_tag f, :cache_time
     div class="uk-width-1-2@s"
       = label f, :a2s_info_cache, [class: "uk-form-label"] do
-        = "A2S_INFO cache"
-      = number_input f, :a2s_info_cache, [class: "uk-input"]
+        | A2S_INFO cache
+      = number_input f, :a2s_info_cache, [class: "uk-input", default: 0, min: 0]
+      = error_tag f, :a2s_info_cache
+    div class="uk-width-1-1@s"
+      = label f, :internal_ip do
+        label.uk-form-label
+          | Internal IP&nbsp;
+          span.uk-text-muted Optional
+      = text_input f, :internal_ip, [class: "uk-input"]
+      = error_tag f, :internal_ip
   .uk-margin
     = submit "Save", [class: "uk-button uk-button-primary"]

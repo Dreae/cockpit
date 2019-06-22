@@ -22,4 +22,12 @@
               = link "", to: Routes.game_server_path(@conn, :edit, server), uk_icon: "file-edit"
               = form_for @conn, Routes.game_server_path(@conn, :delete, server), [method: :delete, id: "delete_#{server.id}", class: "uk-display-inline"], fn f -> 
                 = hidden_input f, :delete, value: true
-                a href="javascript:void(0)" onclick="document.getElementById('delete_#{server.id}').submit(); return false;" uk-icon="trash"
+                a href="javascript:void(0)" onclick="delete_server(#{server.id}, '#{server.name}'); return false;" uk-icon="trash"
+javascript:
+  function delete_server(server_id, server_name) {
+    UIkit.modal.confirm(`This will delete ${server_name}. Are you sure?`).then(() => {
+      document.getElementById(`delete_${server_id}`).submit();
+    });
+
+    return false
+  }

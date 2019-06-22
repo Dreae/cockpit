@@ -1,0 +1,4 @@
+.h3-section.uk-margin-large.uk-width-expand.uk-margin-top
+  h3.header Edit Node
+  .body
+    = render("form.html", action: Routes.node_path(@conn, :update, @node), changeset: @changeset)

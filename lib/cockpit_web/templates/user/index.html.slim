@@ -21,4 +21,12 @@
               = link "", to: Routes.user_path(@conn, :edit, user), uk_icon: "file-edit"
               = form_for @conn, Routes.user_path(@conn, :delete, user), [id: "delete_#{user.id}", class: "uk-display-inline", method: :delete], fn f -> 
                 = hidden_input f, :reboot, value: true
-                a href="javascript:void(0)" onclick="document.getElementById('delete_#{user.id}').submit(); return false;" uk-icon="trash"
+                a href="javascript:void(0)" onclick="delete_user(#{user.id}, '#{user.username}'); return false;" uk-icon="trash"
+javascript:
+  function delete_user(user_id, username) {
+    UIkit.modal.confirm(`This will delete user ${username}. Are you sure?`).then(() => {
+      document.getElementById(`delete_${user_id}`).submit();
+    });
+
+    return false
+  }

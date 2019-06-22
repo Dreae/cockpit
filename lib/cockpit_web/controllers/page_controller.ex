@@ -16,7 +16,7 @@ defmodule CockpitWeb.PageController do
   end
 
   def do_login(conn, %{"username" => username, "password" => password}) do
-    user = Accounts.get_user_by_username(username)
+    user = Accounts.get_user_by_email(username)
     cond do
       user == nil ->
         conn

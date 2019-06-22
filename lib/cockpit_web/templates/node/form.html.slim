@@ -1,0 +1,23 @@
+= form_for @changeset, @action, fn f ->
+  fieldset.uk-fieldset.uk-grid-small uk-grid="true"
+    .uk-width-1-1
+      = label f, :name, [class: "uk-form-label"]
+      = text_input f, :name, [class: "uk-input"]
+      = error_tag f, :name
+    .uk-width-1-2
+      = label f, :address, [class: "uk-form-label"]
+      = text_input f, :address, [class: "uk-input"]
+      = error_tag f, :address
+    .uk-width-1-2
+      = label f, :port, [class: "uk-form-label"]
+      = number_input f, :port, [class: "uk-input", min: 0, max: 65535]
+      = error_tag f, :port
+    .uk-width-1-1
+      = label f, :api_key, [class: "uk-form-label"]
+      div
+        .uk-inline.uk-width-expand
+            a.uk-form-icon.uk-icon uk-icon="refresh"
+            = text_input f, :api_key, [class: "uk-input", readonly: true]
+      = error_tag f, :api_key
+  .uk-margin
+    = submit "Save", [class: "uk-button uk-button-primary"]

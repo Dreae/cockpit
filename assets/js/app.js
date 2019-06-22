@@ -6,6 +6,10 @@ import "../sass/app.scss"
 
 UIkit.use(Icons);
 
+// TODO: Better way to handle these
+window.UIkit = UIkit;
+window.socket = socket;
+
 // Now that you are connected, you can join channels with a topic:
 let channel = socket.channel("dashboard:pps", {})
 channel.join()

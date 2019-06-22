@@ -24,4 +24,12 @@
               = link "", to: Routes.node_path(@conn, :edit, server), uk_icon: "file-edit"
               = form_for @conn, Routes.node_path(@conn, :reboot, server), [id: "reboot_#{server.id}", class: "uk-display-inline"], fn f -> 
                 = hidden_input f, :reboot, value: true
-                a href="javascript:void(0)" onclick="document.getElementById('reboot_#{server.id}').submit(); return false;" uk-icon="refresh"
+                a href="javascript:void(0)" onclick="reboot_node(#{server.id}, '#{server.name}'); return false;" uk-icon="refresh"
+javascript:
+  function reboot_node(node_id, node_name) {
+    UIkit.modal.confirm(`This will reboot compressor on ${node_name}. Are you sure?`).then(() => {
+      document.getElementById(`reboot_${node_id}`).submit();
+    });
+
+    return false
+  }

@@ -1,0 +1,4 @@
+.h3-section.uk-margin-large.uk-width-expand.uk-margin-top
+  h3.header New Game Server
+  .body
+    = render "form.html", Map.put(assigns, :action, Routes.game_server_path(@conn, :create))

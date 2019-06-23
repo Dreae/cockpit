@@ -31,7 +31,7 @@ defmodule CockpitWeb.PageController do
         {:ok, session} = Sessions.new_session(user.id)
         conn
         |> put_session(:sid, session.sid)
-        |> redirect(to: Routes.dashboard_path(conn, :index))
+        |> redirect(to: Routes.page_path(conn, :index))
     end
   end
 

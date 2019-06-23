@@ -9,6 +9,27 @@ html lang="en"
     title Cockpit
     link rel="stylesheet" href=Routes.static_path(@conn, "/css/app.css")
   body
+    .uk-sticky.uk-sticky-fixed.navbar uk-navbar=true
+        .uk-navbar-left
+          a.uk-navbar-item.uk-logo.uk-text-primary href="#{Routes.page_path(@conn, :index)}" Cockpit
+        .uk-navbar-right
+          = if @current_user != nil do
+            javascript:
+              window.socketToken = "#{Phoenix.Token.sign(@conn, "channel_user_salt", @current_user.id)}";
+            ul.uk-navbar-nav
+              .uk-navbar-item.uk-logo
+                img.uk-border-circle height=40 width=40 src=gravatar(@current_user)
+              li
+                a.uk-navbar-item.uk-icon-link href="#{Routes.page_path(@conn, :get_account_settings)}" uk-icon="cog"
+              li
+                = form_for @conn, Routes.page_path(@conn, :do_logout), [id: "logout_form"], fn f ->
+                  = hidden_input f, :logout, value: true
+                  a.uk-navbar-item.uk-icon-link href="javascript:void(0)" onclick="document.getElementById('logout_form').submit(); return false;" uk-icon="sign-out"
+          - else
+            ul.uk-navbar-nav
+              li
+                a.uk-navbar-item.uk-icon-link href="#{Routes.page_path(@conn, :get_login)}" uk-icon="sign-in"
+
     .uk-width-1-1.uk-background-muted.uk-flex uk-height-viewport="offset-top: true"
       .uk-margin-auto.uk-margin-top.uk-width-1-2
         = render @view_module, @view_template, assigns

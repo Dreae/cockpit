@@ -56,6 +56,8 @@ defmodule CockpitWeb.Router do
     post "/nodes/:id/reboot", NodeController, :reboot
     resources "/nodes", NodeController, except: [:index]
     resources "/users", UserController, except: [:index, :show]
+    get "/settings", SettingsController, :get_settings_page
+    post "/settings", SettingsController, :update_settings
   end
   
   scope "/dashboard", CockpitWeb do

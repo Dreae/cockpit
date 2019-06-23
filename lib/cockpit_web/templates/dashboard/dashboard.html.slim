@@ -34,7 +34,7 @@ html lang="en"
                     = nav_link @conn, :index do
                         = link "Home", to: Routes.dashboard_path(@conn, :index)
                     = nav_link @conn, :settings do
-                        = link "Settings", to: Routes.dashboard_path(@conn, :index)
+                        = link "Settings", to: Routes.settings_path(@conn, :get_settings_page)
                     li.uk-nav-header Security
                     = nav_link @conn, :syn_signatures do
                         = link "SYN Signatures", to: Routes.dashboard_path(@conn, :index)

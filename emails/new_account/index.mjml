@@ -24,7 +24,9 @@
           You're receiving this email because your new Cockpit account
           has been created.
         </mj-text>
-        
+        <mj-text align="left">
+          Username: <strong>-username-</strong>
+        </mj-text>
         <mj-text align="left">	
         	Click below to finish creating your account
         </mj-text>

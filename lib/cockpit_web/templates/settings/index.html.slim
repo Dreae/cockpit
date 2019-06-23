@@ -1,0 +1,13 @@
+.h3-section.uk-margin-large.uk-width-expand.uk-margin-top
+  h3.header Settings
+  .body
+    h4.uk-text-primary Email Settings
+    = form_for @conn, Routes.settings_path(@conn, :update_settings), fn f -> 
+      .uk-margin
+        = label f, :sendgrid_api_key do
+          | SendGrid API Key
+        = text_input f, :sendgrid_api_key, [class: "uk-input", value: @sendgrid_api_key]
+      .uk-margin
+        = label f, :from_address
+        = text_input f, :from_address, [class: "uk-input", value: @from_address]
+      = submit "Save", [class: "uk-button uk-button-primary"]

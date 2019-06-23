@@ -3,6 +3,7 @@ defmodule CockpitWeb.UserController do
 
   alias Cockpit.Accounts
   alias Cockpit.Accounts.User
+  alias Cockpit.Emails
 
   def index(conn, _params) do
     users = Accounts.list_users()
@@ -22,8 +23,8 @@ defmodule CockpitWeb.UserController do
     case Accounts.create_user(user_params) do
       {:ok, user} ->
         if %{"send_email" => "true"} = user_params do
-          # TODO: Send email
-          Accounts.new_registration(user.id)
+          {:ok, token} = Accounts.new_registration(user.id)
+          Emails.send_finish_registration(Routes.new_registration_url(conn, :new_registration, token.token), user)
         end
         conn
         |> put_flash(:info, "User created successfully.")

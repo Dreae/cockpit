@@ -19,9 +19,12 @@ defmodule CockpitWeb.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    IO.inspect(File.read("priv/static/email__new_account.html"))
     case Accounts.create_user(user_params) do
       {:ok, user} ->
+        if %{"send_email" => "true"} = user_params do
+          # TODO: Send email
+          Accounts.new_registration(user.id)
+        end
         conn
         |> put_flash(:info, "User created successfully.")
         |> redirect(to: Routes.user_path(conn, :show, user))

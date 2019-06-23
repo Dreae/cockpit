@@ -12,6 +12,7 @@ defmodule CockpitWeb.Plugs.GetUser do
         else
             sid = get_session(conn, :sid)
             if sid !== nil do
+                # TODO: Handle old session ID
                 session = Sessions.get_session!(sid)
                 conn
                 |> assign(:session, session)

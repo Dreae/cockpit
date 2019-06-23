@@ -338,7 +338,9 @@ defmodule Cockpit.Accounts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_new_account_token!(id), do: Repo.get!(NewAccountToken, id)
+  def get_new_account_token!(id) do
+    Repo.get_by!(NewAccountToken, [token: id]) |> Repo.preload(:user)
+  end
 
   @doc """
   Creates a new_account_token.
@@ -356,6 +358,15 @@ defmodule Cockpit.Accounts do
     %NewAccountToken{}
     |> NewAccountToken.changeset(attrs)
     |> Repo.insert()
+  end
+
+  def new_registration(user_id) do
+    token = Base.encode16(:crypto.strong_rand_bytes(24))
+    create_new_account_token(%{token: token, user_id: user_id})
+  end
+
+  def finish_registration(user_id) do
+    Repo.delete_all(from t in NewAccountToken, where: t.user_id == ^user_id)
   end
 
   @doc """

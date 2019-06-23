@@ -1,0 +1,19 @@
+.h3-section.uk-margin-large.uk-width-expand.uk-margin-top
+  h3.header Finish Registration
+  .body
+    p
+      strong Username: &nbsp;
+      | #{@user.username}
+    p
+      strong Email: &nbsp;
+      | #{@user.email}
+    = form_for @changeset, Routes.new_registration_path(@conn, :finish_registration, @token.token), fn f ->
+      .uk-width-1-1
+        = label f, :password, [class: "uk-input-label"]
+        = password_input f, :password, [class: "uk-input"]
+        = error_tag f, :password
+      .uk-margin-top.uk-margin-bottom
+        = label f, :password_confirmation, [class: "uk-input-label"]
+        = password_input f, :password_confirmation, [class: "uk-input"]
+        = error_tag f, :password_confirmation
+      = submit "Submit", [class: "uk-button uk-button-primary"]

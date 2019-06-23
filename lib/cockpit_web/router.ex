@@ -38,6 +38,9 @@ defmodule CockpitWeb.Router do
     get "/", PageController, :index
     get "/login", PageController, :get_login
     post "/login", PageController, :do_login
+
+    get "/register/:token", NewRegistrationController, :new_registration
+    put "/register/:token", NewRegistrationController, :finish_registration
   end
   scope "/", CockpitWeb do
     pipe_through :authenticate

@@ -212,4 +212,196 @@ defmodule Cockpit.Accounts do
   def change_validation_tokens(%ValidationTokens{} = validation_tokens) do
     ValidationTokens.changeset(validation_tokens, %{})
   end
+
+  alias Cockpit.Accounts.PasswordReset
+
+  @doc """
+  Returns the list of password_resets.
+
+  ## Examples
+
+      iex> list_password_resets()
+      [%PasswordReset{}, ...]
+
+  """
+  def list_password_resets do
+    Repo.all(PasswordReset)
+  end
+
+  @doc """
+  Gets a single password_reset.
+
+  Raises `Ecto.NoResultsError` if the Password reset does not exist.
+
+  ## Examples
+
+      iex> get_password_reset!(123)
+      %PasswordReset{}
+
+      iex> get_password_reset!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_password_reset!(id), do: Repo.get!(PasswordReset, id)
+
+  @doc """
+  Creates a password_reset.
+
+  ## Examples
+
+      iex> create_password_reset(%{field: value})
+      {:ok, %PasswordReset{}}
+
+      iex> create_password_reset(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_password_reset(attrs \\ %{}) do
+    %PasswordReset{}
+    |> PasswordReset.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a password_reset.
+
+  ## Examples
+
+      iex> update_password_reset(password_reset, %{field: new_value})
+      {:ok, %PasswordReset{}}
+
+      iex> update_password_reset(password_reset, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_password_reset(%PasswordReset{} = password_reset, attrs) do
+    password_reset
+    |> PasswordReset.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a PasswordReset.
+
+  ## Examples
+
+      iex> delete_password_reset(password_reset)
+      {:ok, %PasswordReset{}}
+
+      iex> delete_password_reset(password_reset)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_password_reset(%PasswordReset{} = password_reset) do
+    Repo.delete(password_reset)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking password_reset changes.
+
+  ## Examples
+
+      iex> change_password_reset(password_reset)
+      %Ecto.Changeset{source: %PasswordReset{}}
+
+  """
+  def change_password_reset(%PasswordReset{} = password_reset) do
+    PasswordReset.changeset(password_reset, %{})
+  end
+
+  alias Cockpit.Accounts.NewAccountToken
+
+  @doc """
+  Returns the list of new_accounts.
+
+  ## Examples
+
+      iex> list_new_accounts()
+      [%NewAccountToken{}, ...]
+
+  """
+  def list_new_accounts do
+    Repo.all(NewAccountToken)
+  end
+
+  @doc """
+  Gets a single new_account_token.
+
+  Raises `Ecto.NoResultsError` if the New account token does not exist.
+
+  ## Examples
+
+      iex> get_new_account_token!(123)
+      %NewAccountToken{}
+
+      iex> get_new_account_token!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_new_account_token!(id), do: Repo.get!(NewAccountToken, id)
+
+  @doc """
+  Creates a new_account_token.
+
+  ## Examples
+
+      iex> create_new_account_token(%{field: value})
+      {:ok, %NewAccountToken{}}
+
+      iex> create_new_account_token(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_new_account_token(attrs \\ %{}) do
+    %NewAccountToken{}
+    |> NewAccountToken.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a new_account_token.
+
+  ## Examples
+
+      iex> update_new_account_token(new_account_token, %{field: new_value})
+      {:ok, %NewAccountToken{}}
+
+      iex> update_new_account_token(new_account_token, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_new_account_token(%NewAccountToken{} = new_account_token, attrs) do
+    new_account_token
+    |> NewAccountToken.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a NewAccountToken.
+
+  ## Examples
+
+      iex> delete_new_account_token(new_account_token)
+      {:ok, %NewAccountToken{}}
+
+      iex> delete_new_account_token(new_account_token)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_new_account_token(%NewAccountToken{} = new_account_token) do
+    Repo.delete(new_account_token)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking new_account_token changes.
+
+  ## Examples
+
+      iex> change_new_account_token(new_account_token)
+      %Ecto.Changeset{source: %NewAccountToken{}}
+
+  """
+  def change_new_account_token(%NewAccountToken{} = new_account_token) do
+    NewAccountToken.changeset(new_account_token, %{})
+  end
 end

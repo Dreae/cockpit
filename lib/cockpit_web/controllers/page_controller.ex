@@ -2,6 +2,7 @@ defmodule CockpitWeb.PageController do
   use CockpitWeb, :controller
 
   alias Cockpit.Accounts
+  alias Cockpit.Sessions
 
   def index(conn, _params) do
     render(conn, "index.html")
@@ -27,15 +28,19 @@ defmodule CockpitWeb.PageController do
         |> put_flash(:error, "Username or password incorrect")
         |> render("login.html")
       true ->
+        {:ok, session} = Sessions.new_session(user.id)
         conn
-        |> put_session(:user_id, user.id)
+        |> put_session(:sid, session.sid)
         |> redirect(to: Routes.dashboard_path(conn, :index))
     end
   end
 
   def do_logout(conn, _params) do
+    session = conn.assigns[:session]
+    Sessions.delete_session(session)
+
     conn
-    |> put_session(:user_id, nil)
+    |> put_session(:sid, nil)
     |> redirect(to: Routes.page_path(conn, :index))
   end
 

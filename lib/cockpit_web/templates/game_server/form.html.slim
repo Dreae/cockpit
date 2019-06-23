@@ -10,7 +10,7 @@
       = error_tag f, :bind
     div class="uk-width-1-2@s"
       = label f, :bind_port, [class: "uk-form-label"]
-      = number_input f, :bind_port, [class: "uk-input"]
+      = number_input f, :bind_port, [class: "uk-input", min: 0, max: 65535, value: 27015]
       = error_tag f, :bind_port
     div class="uk-width-1-2@s"
       = label f, :dest, [class: "uk-form-label"]
@@ -18,16 +18,16 @@
       = error_tag f, :dest
     div class="uk-width-1-2@s"
       = label f, :dest_port, [class: "uk-form-label"]
-      = number_input f, :dest_port, [class: "uk-input", min: 0, max: 65535, default: 27015]
+      = number_input f, :dest_port, [class: "uk-input", min: 0, max: 65535, value: 27015]
       = error_tag f, :dest_port
     div class="uk-width-1-2@s"
       = label f, :cache_time, [class: "uk-form-label"]
-      = number_input f, :cache_time, [class: "uk-input", default: 60, min: 0]
+      = number_input f, :cache_time, [class: "uk-input", value: 60, min: 0]
       = error_tag f, :cache_time
     div class="uk-width-1-2@s"
       = label f, :a2s_info_cache, [class: "uk-form-label"] do
         | A2S_INFO cache
-      = number_input f, :a2s_info_cache, [class: "uk-input", default: 0, min: 0]
+      = number_input f, :a2s_info_cache, [class: "uk-input", value: 0, min: 0]
       = error_tag f, :a2s_info_cache
     div class="uk-width-1-1@s"
       = label f, :internal_ip do

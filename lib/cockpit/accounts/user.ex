@@ -3,12 +3,14 @@ defmodule Cockpit.Accounts.User do
   import Ecto.Changeset
 
   alias Cockpit.Ecto.Atom
+  alias Cockpit.Sessions.Session
 
   schema "users" do
     field :email, :string
     field :password, :string
     field :username, :string
     field :level, Atom
+    has_many :sessions, Session
 
     timestamps()
   end

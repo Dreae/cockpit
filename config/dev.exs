@@ -36,6 +36,20 @@ config :cockpit, CockpitWeb.Endpoint,
       "development",
       "--watch-stdin",
       cd: Path.expand("../assets", __DIR__)
+    ],
+    mjml: [
+      "-w",
+      "password_reset/index.mjml",
+      "-o",
+      "../priv/static/email__password_reset.html",
+      cd: Path.expand("../emails", __DIR__)
+    ],
+    mjml: [
+      "-w",
+      "new_account/index.mjml",
+      "-o",
+      "../priv/static/email__new_account.html",
+      cd: Path.expand("../emails", __DIR__)
     ]
   ]
 

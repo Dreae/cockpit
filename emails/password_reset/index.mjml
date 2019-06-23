@@ -1,0 +1,41 @@
+<mjml>
+
+  <mj-head>
+		<mj-font name="Roboto" href="https://fonts.googleapis.com/css?family=Roboto" />
+    <mj-attributes>
+      <mj-text align="center" color="#555" />
+      <mj-all font-family="Roboto"/>
+    </mj-attributes>
+
+  </mj-head>
+
+  <mj-body background-color="#eee">
+
+    <mj-include path="./header.mjml" />
+
+    <mj-section background-color="#fff">
+
+      <mj-column>
+        <mj-text align="center">
+          <h2>Reset your password</h2>
+				</mj-text>
+        <mj-divider border-width="1px" border-color="#745fb5" />
+        <mj-text align="left">
+          You're receiving this email because you requested
+          a password reset for your Cockpit account.
+        </mj-text>
+        
+        <mj-text align="left">	
+        	Click below to choose a new password
+        </mj-text>
+        
+        <mj-button background-color="#745fb5" href="-resetLink-">Reset password</mj-button>
+      </mj-column>
+
+    </mj-section>
+
+    <mj-include path="./footer.mjml" />
+
+  </mj-body>
+
+</mjml>

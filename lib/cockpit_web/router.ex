@@ -38,13 +38,13 @@ defmodule CockpitWeb.Router do
     get "/", PageController, :index
     get "/login", PageController, :get_login
     post "/login", PageController, :do_login
-    post "/logout", PageController, :do_logout
   end
   scope "/", CockpitWeb do
     pipe_through :authenticate
 
     get "/settings", PageController, :get_account_settings
     put "/settings", PageController, :update_account_settings
+    post "/logout", PageController, :do_logout
   end
 
   scope "/dashboard", CockpitWeb do

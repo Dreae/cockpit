@@ -45,6 +45,7 @@ defmodule CockpitWeb.Router do
     get "/password-reset", AccountRecoveryController, :get_forgotten_password
     post "/password-reset", AccountRecoveryController, :do_recover_password
     get "/password-reset/:token", AccountRecoveryController, :get_password_reset
+    put "/password-reset/:token", AccountRecoveryController, :do_password_reset
   end
 
   scope "/", CockpitWeb do

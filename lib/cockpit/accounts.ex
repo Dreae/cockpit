@@ -82,7 +82,7 @@ defmodule Cockpit.Accounts do
       _ ->
         attrs
     end
-    
+
     user
     |> User.changeset(attrs)
     |> Repo.update()
@@ -242,7 +242,9 @@ defmodule Cockpit.Accounts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_password_reset!(id), do: Repo.get!(PasswordReset, id)
+  def get_password_reset!(id) do
+    Repo.get_by!(PasswordReset, [token: id]) |> Repo.preload([:user])
+  end
 
   @doc """
   Creates a password_reset.
@@ -312,6 +314,10 @@ defmodule Cockpit.Accounts do
   """
   def change_password_reset(%PasswordReset{} = password_reset) do
     PasswordReset.changeset(password_reset, %{})
+  end
+
+  def finish_password_reset(%User{} = user) do
+    Repo.delete_all(from r in PasswordReset, where: r.user_id == ^user.id)
   end
 
   alias Cockpit.Accounts.NewAccountToken

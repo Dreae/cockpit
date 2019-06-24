@@ -18,4 +18,4 @@
 								= submit "Login", class: "uk-button uk-button-primary uk-button-large uk-width-1-1"
 							.uk-text-small.uk-text-center
 								| Forgotten password?&nbsp;
-								= link "Recover account", to: Routes.page_path(@conn, :get_login)
+								= link "Recover account", to: Routes.account_recovery_path(@conn, :get_forgotten_password)

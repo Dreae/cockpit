@@ -59,4 +59,12 @@ html lang="en"
             = render @view_module, @view_template, assigns
     script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"
     script src=Routes.static_path(@conn, "/js/app.js")
+    - info_flash = get_flash(@conn, :info)
+    = if info_flash !== nil do
+      javascript:
+        UIkit.notification("#{info_flash}")
+    - danger_flash = get_flash(@conn, :error)
+    = if danger_flash !== nil do
+      javascript:
+        UIkit.notification("#{danger_flash}", {status: "danger"})
 

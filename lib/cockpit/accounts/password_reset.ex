@@ -2,9 +2,11 @@ defmodule Cockpit.Accounts.PasswordReset do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Cockpit.Accounts.User
+
   schema "password_resets" do
     field :token, :string
-    field :user_id, :id
+    belongs_to :user, User
 
     timestamps()
   end
@@ -12,7 +14,7 @@ defmodule Cockpit.Accounts.PasswordReset do
   @doc false
   def changeset(password_reset, attrs) do
     password_reset
-    |> cast(attrs, [:token])
-    |> validate_required([:token])
+    |> cast(attrs, [:token, :user_id])
+    |> validate_required([:token, :user_id])
   end
 end

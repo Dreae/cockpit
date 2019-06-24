@@ -13,7 +13,7 @@ defmodule CockpitWeb.NewRegistrationController do
   def finish_registration(conn, %{"token" => token, "user" => %{"password" => password, "password_confirmation" => password_conf}}) do
     token = Accounts.get_new_account_token!(token)
     case Accounts.update_user(token.user, %{password: password, password_confirmation: password_conf}) do
-      {:ok, user} ->
+      {:ok, _user} ->
         Accounts.finish_registration(token.user.id)
         conn
         |> put_flash(:info, "User updated successfully.")

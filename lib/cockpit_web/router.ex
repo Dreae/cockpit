@@ -41,7 +41,12 @@ defmodule CockpitWeb.Router do
 
     get "/register/:token", NewRegistrationController, :new_registration
     put "/register/:token", NewRegistrationController, :finish_registration
+
+    get "/password-reset", AccountRecoveryController, :get_forgotten_password
+    post "/password-reset", AccountRecoveryController, :do_recover_password
+    get "/password-reset/:token", AccountRecoveryController, :get_password_reset
   end
+
   scope "/", CockpitWeb do
     pipe_through :authenticate
 

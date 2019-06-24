@@ -262,6 +262,11 @@ defmodule Cockpit.Accounts do
     |> Repo.insert()
   end
 
+  def new_password_reset(user_id) do
+    token = Base.encode16(:crypto.strong_rand_bytes(24))
+    create_password_reset(%{user_id: user_id, token: token})
+  end
+
   @doc """
   Updates a password_reset.
 

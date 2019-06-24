@@ -3,6 +3,7 @@ defmodule CockpitWeb.PageController do
 
   alias Cockpit.Accounts
   alias Cockpit.Sessions
+  alias Cockpit.Emails
 
   def index(conn, _params) do
     render(conn, "index.html")

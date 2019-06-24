@@ -1,0 +1,10 @@
+.h3-section.uk-margin-large.uk-width-expand.uk-margin-top
+  h3.header Reset Password
+  .body
+    p Enter your email address to recover your account
+    = form_for @conn, Routes.account_recovery_path(@conn, :do_recover_password), fn f ->
+      .uk-width-1-1.uk-margin-bottom
+        = label f, :email_address, [class: "uk-input-label"]
+        = text_input f, :email_address, [class: "uk-input"]
+        = error_tag f, :email_address
+      = submit "Submit", [class: "uk-button uk-button-primary"]

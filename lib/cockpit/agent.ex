@@ -1,5 +1,4 @@
 defmodule Cockpit.Agent do
-  alias Cockpit.Timeseries.Connection
   use Task, restart: :permanent
   require Logger
 

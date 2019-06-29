@@ -1,14 +1,14 @@
 .uk-container
-    .uk-margin-top.uk-width-1-1 uk-grid=true
-        .h3-section.uk-width-medium.uk-margin-auto
-            h3.header Connected nodes
-            .body
-                h2 #{@connected_servers}/#{@total_servers}
-        .h3-section.uk-width-medium.uk-margin-auto
-            h3.header Game servers
-            .body
-                h2 #{@game_servers}
+  .uk-margin-top.uk-width-1-1 uk-grid=true
+    .h3-section.uk-width-medium.uk-margin-auto
+      h3.header Connected nodes
+      .body
+        h2 #{@connected_servers}/#{@total_servers}
+    .h3-section.uk-width-medium.uk-margin-auto
+      h3.header Game servers
+      .body
+        h2 #{@game_servers}
 .h3-section.uk-margin-large.uk-width-expand
-    h3.header PPS
-    .body.uk-height-large
-        canvas#pps_chart
+  h3.header PPS
+  .body.uk-height-large
+    canvas data-controller="pps-chart"

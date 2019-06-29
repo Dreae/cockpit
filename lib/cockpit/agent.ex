@@ -4,10 +4,7 @@ defmodule Cockpit.Agent do
   require Logger
 
   def start_link(port) do
-    :pong = Connection.ping()
-    Cockpit.Timeseries.Connection.execute("CREATE DATABASE cockpit_nodes", method: :post)
-
-    Task.start_link(Cockpit.Agent, :start_listen, [port])
+      Task.start_link(Cockpit.Agent, :start_listen, [port])
   end
 
   def start_listen(port) do

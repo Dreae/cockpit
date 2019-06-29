@@ -8,8 +8,9 @@ html lang="en"
     meta content="" name="author"
     title Cockpit
     link rel="stylesheet" href=Routes.static_path(@conn, "/css/app.css")
-    javascript:
-      window.socketToken = "#{Phoenix.Token.sign(@conn, "channel_user_salt", @current_user.id)}";
+    = if @current_user !== nil do
+      javascript:
+        window.socketToken = "#{Phoenix.Token.sign(@conn, "channel_user_salt", @current_user.id)}";
     script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"
     script src=Routes.static_path(@conn, "/js/app.js")
   body

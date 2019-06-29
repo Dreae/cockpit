@@ -11,6 +11,7 @@ defmodule Cockpit.Application do
       # Start the Ecto repository
       Cockpit.Repo,
       Cockpit.Timeseries.Connection,
+      Cockpit.Timeseries.Agent,
       # Start the endpoint when the application starts
       CockpitWeb.Endpoint,
       # Starts a worker by calling: Cockpit.Worker.start_link(arg)

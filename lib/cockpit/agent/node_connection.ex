@@ -2,7 +2,7 @@ defmodule Cockpit.Agent.NodeConnection do
   use GenServer
   use Cockpit.Agent.EncryptedSocket
   require Logger
-  
+
   alias Cockpit.Servers
   alias Cockpit.GameServers
 
@@ -29,7 +29,8 @@ defmodule Cockpit.Agent.NodeConnection do
     {:noreply, state}
   end
 
-  def handle_info({:decrypted, <<"pps", _pps::big-unsigned-64>>}, state) do
+  def handle_info({:decrypted, <<"pps", pps::big-unsigned-64>>}, %{server_id: server_id} = state) do
+    send(Cockpit.Timeseries.Agent, %{server_id: server_id, pps: pps})
     {:noreply, state}
   end
 
@@ -52,14 +53,14 @@ defmodule Cockpit.Agent.NodeConnection do
     inte_addr = <<inte_octet_1, inte_octet_2, inte_octet_3, inte_octet_4>>
 
     packet = <<"server_update">>
-      <> bind_addr 
+      <> bind_addr
       <> <<server_info.bind_port::big-unsigned-16>>
       <> dest_addr
       <> <<server_info.dest_port::big-unsigned-16>>
       <> inte_addr
       <> <<server_info.cache_time::big-unsigned-32>>
       <> <<server_info.a2s_info_cache::big-unsigned-32>>
-    
+
     send_encrypted(packet, state)
 
     {:noreply, state}

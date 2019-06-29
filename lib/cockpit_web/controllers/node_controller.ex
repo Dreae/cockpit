@@ -12,7 +12,7 @@ defmodule CockpitWeb.NodeController do
     |> render("index.html", servers: servers)
   end
 
-  def new(conn, _params) do 
+  def new(conn, _params) do
     changeset = Servers.change_server(%Server{}) |> Changeset.put_change(:api_key, Servers.gen_token())
     conn
     |> assign(:active_link, :add_node)

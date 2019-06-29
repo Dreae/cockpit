@@ -1,29 +1,21 @@
 import socket from "./socket";
 import UIkit from "uikit";
 import Icons from "uikit/dist/js/uikit-icons";
-
-import "../sass/app.scss"
+import turbolinks from "turbolinks";
+import { Application } from "stimulus";
+import PPSCounter from "./components/pps_counter";
+import "../sass/app.scss";
 
 UIkit.use(Icons);
+turbolinks.start();
+
+const application = new Application();
+application.register("pps-counter", PPSCounter);
+application.start();
 
 // TODO: Better way to handle these
 window.UIkit = UIkit;
 window.socket = socket;
-
-// Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("dashboard:pps", {})
-channel.join()
-  .receive("ok", resp => { console.log("Joined successfully", resp) })
-  .receive("error", resp => { console.log("Unable to join", resp) });
-
-// TODO: Better way to handle this
-channel.on("pps_update", payload => {
-    let ppsCounter = document.getElementById("pps-counter");
-    if (ppsCounter) {
-        let ppsString = payload.pps.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        ppsCounter.innerText = `${ppsString} PPS`;
-    }
-});
 
 var ctx = document.getElementById('pps_chart').getContext('2d');
 new Chart(ctx, {

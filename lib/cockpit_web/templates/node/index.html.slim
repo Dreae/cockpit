@@ -15,7 +15,7 @@
               | #{server.name}
               br
               span.uk-text-muted #{server.address}
-            td 123
+            td = @server_pps[to_string(server.id)]
             = if server.status == :up do
               td.uk-text-success Up
             - else

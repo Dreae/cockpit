@@ -7,9 +7,10 @@ defmodule CockpitWeb.NodeController do
 
   def index(conn, _params) do
     servers = Servers.list_servers()
+    server_pps = Cockpit.Timeseries.Agent.get_pps_by_server_id()
     conn
     |> assign(:active_link, :node_list)
-    |> render("index.html", servers: servers)
+    |> render("index.html", servers: servers, server_pps: server_pps)
   end
 
   def new(conn, _params) do

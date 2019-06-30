@@ -4,6 +4,7 @@ defmodule CockpitWeb.DashboardChannel do
   def join("dashboard:pps", _message, socket) do
     case socket.assigns[:user].level do
       :admin ->
+        send(self(), :update)
         :timer.send_interval(20000, :update)
         {:ok, socket}
       _ ->

@@ -14,7 +14,7 @@ defmodule CockpitWeb.Plugs.Authorize do
   end
 
   def a ~> b do
-    case {a, b} do 
+    case {a, b} do
       {:admin, _} ->
         true
       {:manager, :manager} ->

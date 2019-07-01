@@ -36,28 +36,28 @@ html lang="en"
                 ul.uk-nav.uk-nav-default
                     = nav_link @conn, :index do
                         = link "Home", to: Routes.dashboard_path(@conn, :index)
-                    = nav_link @conn, :settings do
+                    = nav_link @conn, :settings, [level: :admin] do
                         = link "Settings", to: Routes.settings_path(@conn, :get_settings_page)
-                    li.uk-nav-header Security
-                    = nav_link @conn, :syn_signatures do
-                        = link "SYN Signatures", to: Routes.dashboard_path(@conn, :index)
-                    = nav_link @conn, :packet_filters do
-                        = link "Packet Filters", to: Routes.dashboard_path(@conn, :index)
-                    li.uk-nav-header Game Servers
-                    = nav_link @conn, :server_list do
-                        = link "List Servers", to: Routes.game_server_path(@conn, :index)
-                    = nav_link @conn, :add_server do
-                        = link "Add Server", to: Routes.game_server_path(@conn, :new)
-                    li.uk-nav-header Nodes
-                    = nav_link @conn, :node_list do
-                        = link "List Nodes", to: Routes.node_path(@conn, :index)
-                    = nav_link @conn, :add_node do
-                        = link "Add Node", to: Routes.node_path(@conn, :new)
-                    li.uk-nav-header Users
-                    = nav_link @conn, :user_list do
-                        = link "List Users", to: Routes.user_path(@conn, :index)
-                    = nav_link @conn, :add_user do
-                        = link "Add User", to: Routes.user_path(@conn, :new)
+                    = nav_block "Security", @conn, [level: :admin] do
+                        = nav_link @conn, :syn_signatures do
+                            = link "SYN Signatures", to: Routes.dashboard_path(@conn, :index)
+                        = nav_link @conn, :packet_filters do
+                            = link "Packet Filters", to: Routes.dashboard_path(@conn, :index)
+                    = nav_block "Game Servers" do
+                        = nav_link @conn, :server_list do
+                            = link "List Servers", to: Routes.game_server_path(@conn, :index)
+                        = nav_link @conn, :add_server do
+                            = link "Add Server", to: Routes.game_server_path(@conn, :new)
+                    = nav_block "Nodes" do
+                        = nav_link @conn, :node_list do
+                            = link "List Nodes", to: Routes.node_path(@conn, :index)
+                        = nav_link @conn, :add_node, [level: :admin] do
+                            = link "Add Node", to: Routes.node_path(@conn, :new)
+                    = nav_block "Users" do
+                        = nav_link @conn, :user_list do
+                            = link "List Users", to: Routes.user_path(@conn, :index)
+                        = nav_link @conn, :add_user, [level: :admin] do
+                            = link "Add User", to: Routes.user_path(@conn, :new)
         .uk-width-expand.uk-margin-left.uk-margin-right
             = render @view_module, @view_template, assigns
     - info_flash = get_flash(@conn, :info)

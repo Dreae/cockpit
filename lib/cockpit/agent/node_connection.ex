@@ -66,6 +66,12 @@ defmodule Cockpit.Agent.NodeConnection do
     {:noreply, state}
   end
 
+  def handle_info(:server_reboot, state) do
+    send_encrypted("reboot", state)
+
+    {:noreply, state}
+  end
+
   def terminate(_reason, %{server_id: server_id}) do
     Servers.set_status(server_id, :down)
   end

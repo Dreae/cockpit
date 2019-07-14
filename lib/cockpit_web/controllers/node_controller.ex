@@ -39,7 +39,8 @@ defmodule CockpitWeb.NodeController do
     render(conn, "edit.html", node: node, changeset: changeset)
   end
 
-  def reboot(conn, _params) do
+  def reboot(conn, %{"id" => id}) do
+    Phoenix.PubSub.broadcast(Cockpit.PubSub, "CockpitNode:#{id}", :server_reboot)
     redirect conn, to: Routes.node_path(conn, :index)
   end
 end
